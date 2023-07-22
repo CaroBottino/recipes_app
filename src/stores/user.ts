@@ -57,6 +57,7 @@ export const useUserStore = defineStore('user', () => {
       role: '',
       email: '',
       id: '',
+      avatar: '',
       cart: [],
       bought: []
     }
