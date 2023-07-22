@@ -9,16 +9,19 @@ export const useUserStore = defineStore('user', () => {
     user: <User>{
       id: '',
       fullname: '',
+      avatar: '',
       email: '',
       pass: '',
       role: '',
-      cart: []
+      cart: [],
+      bought: []
     }
   })
   const logged = ref(false)
 
   const getUser = computed(() => state.user)
   const getUserCart = computed(() => state.user.cart)
+  const getRecipesBought = computed(() => state.user.bought)
 
   const cartItemsQ = computed(() => state.user.cart.length)
   const cartPrice = computed(() => {
@@ -38,11 +41,13 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
-  function loggingUser(payload: User) {
-    UsersController.updateUser(payload.id, payload).then((res) => {
-      state.user = res.data
-      logged.value = true
-    })
+  function loginUser(payload: User) {
+    // UsersController.updateUser(payload.id, payload).then((res) => {
+    //   state.user = res.data
+    //   logged.value = true
+    // })
+    state.user = payload
+    logged.value = true
   }
 
   function logoutUser() {
@@ -86,29 +91,18 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  function updateItemAdd(item: CartItem) {
-    item.q = 1
-    updateItemQ(item)
-  }
-
-  function updateItemSubs(item: CartItem) {
-    item.q = -1
-    updateItemQ(item)
-  }
-
   return {
     logged,
     getUser,
     getUserCart,
+    getRecipesBought,
     cartItemsQ,
     cartPrice,
     getItemFromCart,
     createUser,
-    loggingUser,
+    loginUser,
     logoutUser,
     editUserInfo,
-    addItemToCart,
-    updateItemAdd,
-    updateItemSubs
+    addItemToCart
   }
 })

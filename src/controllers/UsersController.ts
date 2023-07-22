@@ -3,15 +3,12 @@ import type { User } from '@/models/User'
 
 export default {
   getUsers(): Promise<any> {
-    return axios.get<User[]>(`${import.meta.env.VITE_MOCKAPI_URL}/users`)
-  },
-  getUserByMail(mail: string): Promise<any> {
-    return axios.get<User>(`${import.meta.env.VITE_MOCKAPI_URL}/users/${mail}`)
+    return axios.get<User[]>(`${import.meta.env.VITE_MOCKAPI_URL}/user`)
   },
   createUser(user: User): Promise<any> {
-    return axios.post<User>(`${import.meta.env.VITE_MOCKAPI_URL}/users`, user)
+    return axios.post<User>(`${import.meta.env.VITE_MOCKAPI_URL}/user`, user)
   },
   updateUser(id: string, user: User): Promise<any> {
-    return axios.put<User>(`${import.meta.env.VITE_MOCKAPI_URL}/users/${id}`, user)
+    return axios.put<User>(`${import.meta.env.VITE_MOCKAPI_URL}/user/${id}`, user)
   }
 }
