@@ -55,7 +55,7 @@ export const useUserStore = defineStore('user', () => {
       cart: []
     }
 
-    setUser(emptyUser)
+    state.user = emptyUser
     logged.value = false
   }
 

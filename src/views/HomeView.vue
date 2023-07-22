@@ -1,9 +1,9 @@
 <template>
   <main>
-    <ItemsList />
+    <RecipesList />
   </main>
 </template>
 
 <script setup lang="ts">
-import ItemsList from '@/components/ItemsList.vue'
+import RecipesList from '@/components/RecipesList.vue'
 </script>

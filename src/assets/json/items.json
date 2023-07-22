@@ -1,0 +1,75 @@
+[
+    {
+      "id": "1",
+      "name": "Pan de campo blanco",
+      "img": "https://images.deliveryhero.io/image/pedidosya/products/740dfce2-5be8-4a9a-a188-786dcafcb7bd.jpeg",
+      "ingredients": [
+        "500 gr harina 000",
+        "25 gr levadura fresca",
+        "50 gr grasa bovina",
+        "260 gr agua",
+        "10 gr sal"
+      ],
+      "steps": [
+        "Comenzamos formando un pre-fermento, colocando la levadura en un cuenco con la mitad del agua. La disolvemos bien y agregamos 70 gr de la harina ya pesada. Formamos un engrudo y dejamos reposar tapado por 15 minutos.",
+        "Lo siguiente es formar una corona con la harina, en el centro el resto del agua y por fuera la sal para que no tenga contacto con la levadura. Agregamos el pre-fermento y comenzamos a integrar desde en centro. Antes de integrar por completo agregamos la grasa y comenzamos a formar el bollo.",
+        "Amasamos por 10 minutos hasta que tengamos una linda masa. Tapamos, dejamos descansar por 20 minutos en un lugar cálido.",
+        "Ahora apretamos la masa para desgasificar, dividimos la masa en la cantidad de panes que queremos (yo hice 3) y formamos bollitos bien redondos.",
+        "Los ponemos en una placa SIN NADA por que ya tienen grasa y tapados los dejamos leudar por 20 minutos, mientras prendemos el horno y en el piso podes poner una bandeja vacía después te cuento por que 😉",
+        "Ya fermentados nuestros bollos les espolvoreamos harina y con un cuchillo muy afilado (o mejor una gillete) hacemos cortes. Los ponemos en el horno, en la fuente vacía ponés una taza de agua y cerrá inmediatamente. Esto va a generar vapor y nos va a dar una miga increíble.",
+        "Cocinamos por 30/35 minutos y a comer!"
+      ],
+      "price": 123,
+      "time": 180,
+      "servings": 8,
+      "tags": [
+        "pan"
+      ],
+      "userId": "1"
+    },
+    {
+      "id": "2",
+      "name": "Torta Belga",
+      "img": "https://images.deliveryhero.io/image/pedidosya/products/a8a5fc9b-d324-4aee-91a4-7b18fc98ec4c.jpg",
+      "ingredients": [
+        "8 onzas chocolate amargo picado en trocitos pequeños",
+        "1 gran vaso de nata líquida",
+        "1 cda café expreso",
+        "1/3 de copa azúcar glacé",
+        "2 huevos grandes enteros",
+        "2 yemas de huevo",
+        "1 huevo entero batido con una cucharada de agua",
+        "cacao en polvo para decorar",
+        "azúcar glacé para decorar",
+        "nata montada",
+        "1 rollo de masa preparada (redonda)"
+      ],
+      "steps": [
+        "Unte el molde dela tarta generosamente con la mantequilla.",
+        "Extienda el rollo de masa sobre la encimera espolvoreada de harina, para que no se le pegue.",
+        "Luego adáptelo en el molde. La parte sobrante córtela y retírela. Pinche la masa con un tenedor e introduzcala en el frigorífico durante unos 10 min.",
+        "Precaliente el horno a la máxima potencia.",
+        "Saque la masa de la nevera y cúbrala con papel de aluminio. Ponga un montón de alubias o arroz encima del aluminio, para que pese e introduzcado en el horno, durante 10 min.",
+        "Transcurrido ese tiempo, retire el papel de aluminio, baje el fuego a 180º y déjelo 5 mínutos más para que se dore.",
+        "Sáquelo del horno, pero déjelo encendido.",
+        "Para el relleno:",
+        "Triture el chocolate con un robot.",
+        "Mezcle en una cacerola la nata, el café y el azúcar glacé. Póngalo al fuego para que se deshaga bien sobre el fuego.",
+        "Remueva bien para que se mezcle sobre el fuego.",
+        "Vierta esta crema sobre el chocolate y remueva para que quede una mezcla homogénea.",
+        "Bata los huevos y las yemas de huevo y viértalos sobre la mezcla sin dejar de remover.",
+        "Vierta la crema de chocolate dentro del molde. Unte con un pincel la superficie con el huevo mezclado con agua.",
+        "Introducir la tarta en el horno precalentado al máximo durante 15 min.",
+        "Retírelo del horno y déjelo enfriar. Cuando ya esté frío, desmoldelo y metalo en la nevera hasta el momento de comerlo.",
+        "Como decoración y con la ayuda de un cedazo, espolvorée la superficie de azúcar glacé. Se acompaña de nata montada, para que cada cual se sirva lo que quiera."
+      ],
+      "price": 75,
+      "time": 75,
+      "serving": 10,
+      "tags": [
+        "torta", "belga", "cake", "sweet", "chocolate"
+      ],
+      "userId": "1"
+    }
+
+]

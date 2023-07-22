@@ -11,13 +11,24 @@
         <div class="modal-content">
           <div class="modal-header">
             <div class="w-100">
-              <img rounded="top" :src="props.item.img" />
+              <img rounded="top" :src="props.recipe.img" />
             </div>
           </div>
           <div class="modal-body">
-            <h3>{{ props.item.name }}</h3>
-            <p class="my-4">$ {{ props.item.price }}</p>
-            <p>{{ props.item.desc }}</p>
+            <h3>{{ props.recipe.name }}</h3>
+            <p class="my-4">$ {{ props.recipe.price }}</p>
+            <p>Tiempo: {{ props.recipe.time }} minutos</p>
+
+            <div>
+              <h6>Ingredientes</h6>
+              <ul>
+                <li v-for="(step, i) in props.recipe.steps" :key="i">
+                  {{ step }}
+                </li>
+              </ul>
+            </div>
+      
+            <p>tené la receta completa por ${{ props.recipe.price }}</p>
           </div>
           <div class="modal-footer">
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -33,15 +44,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { Item } from '@/models/Item'
+import { ref, type PropType } from 'vue'
+import type { Recipe } from '@/models/Recipe'
 
-const props = defineProps<{
-  item: {
-    type: Item
+const props = defineProps({
+  recipe: {
+    type: Object as PropType<Recipe>,
     required: true
   }
-}>()
+})
 
 const quantity = ref(1)
 </script>
@@ -56,3 +67,4 @@ img {
   padding: 0;
 }
 </style>
+@/models/Recipes

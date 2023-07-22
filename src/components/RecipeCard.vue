@@ -1,9 +1,11 @@
 <template>
   <div class="card">
-    <img :src="props.item.img" :alt="props.item.name" style="opacity: 1" />
+    <img :src="props.recipe.img" :alt="props.recipe.name" style="opacity: 1" />
     <header>
-      <h4>{{ props.item.name }}</h4>
-      <p>$ {{ props.item.price }}</p>
+      <h4>{{ props.recipe.name }}</h4>
+      <p>porciones: {{ props.recipe.servings }}</p>
+      <p>tiempo: {{ props.recipe.time }} minutos</p>
+      <p>$ {{ props.recipe.price }}</p>
     </header>
     <footer>
       <button
@@ -16,7 +18,7 @@
         <i class="bi bi-info-lg"></i>
       </button>
       <button
-        v-if="store.getItemFromCart(props.item.id).length > 0"
+        v-if="store.getItemFromCart(props.recipe.id).length > 0"
         type="button"
         class="btn btn-primary icon-check"
       >
@@ -51,22 +53,23 @@
 </template>
 
 <script setup lang="ts">
-import type { Item } from '@/models/Item'
+import type { PropType } from 'vue'
+import type { Recipe } from '@/models/Recipe'
 import { useUserStore } from '@/stores/user'
 
 const store = useUserStore()
 
 const emits = defineEmits(['showInfo'])
 
-const props = defineProps<{
-  item: {
-    type: Item
+const props = defineProps({
+  recipe: {
+    type: Object as PropType<Recipe>,
     required: true
   }
-}>()
+})
 
 const showInfo = () => {
-  emits('showInfo', props.item)
+  emits('showInfo', props.recipe)
 }
 </script>
 
@@ -113,11 +116,10 @@ const showInfo = () => {
 }
 .card p {
   font-size: 1rem;
+  margin-bottom: 0;
 }
 
 .card button {
-  width: 3rem;
-  height: 3rem;
   border-radius: 5px;
   border: none;
   transition: opacity 0.2s ease;
@@ -133,3 +135,4 @@ const showInfo = () => {
   margin: 1rem;
 }
 </style>
+@/models/Recipes
