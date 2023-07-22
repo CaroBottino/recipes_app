@@ -57,7 +57,8 @@ export const useUserStore = defineStore('user', () => {
       role: '',
       email: '',
       id: '',
-      cart: []
+      cart: [],
+      bought: []
     }
 
     state.user = emptyUser
