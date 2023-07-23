@@ -14,11 +14,30 @@
           <template v-if="header === 'img'">
             <img :src="item[header]" class="img-fluid rounded-start" alt="..." />
           </template>
+          <template v-else-if="header === 'tags'">
+            <span
+              v-for="(tag, i) in item[header as keyof Recipe]"
+              :key="i"
+              class="badge rounded-pill bg-primary tag"
+            >
+              {{ tag }}
+            </span>
+          </template>
           <template v-else>
             {{ item[header as keyof Recipe] }}
           </template>
         </td>
         <td v-if="actions">
+          <button
+            v-if="actions.includes('view')"
+            type="button"
+            class="btn btn-primary"
+            @click="viewItem(item.id)"
+            data-bs-toggle="modal"
+            data-bs-target="#infoRecipe"
+          >
+            <i class="bi bi-search-heart"></i>
+          </button>
           <button
             v-if="actions.includes('edit')"
             type="button"
@@ -44,7 +63,7 @@
 <script setup lang="ts">
 import type { Recipe } from '@/models/Recipe'
 
-const emits = defineEmits(['editItem', 'deleteItem'])
+const emits = defineEmits(['editItem', 'deleteItem', 'viewItem'])
 
 defineProps({
   headers: {
@@ -67,6 +86,10 @@ const editItem = (itemId: string) => {
 const deleteItem = (itemId: string) => {
   emits('deleteItem', itemId)
 }
+
+const viewItem = (itemId: string) => {
+  emits('viewItem', itemId)
+}
 </script>
 
 <style scoped>
@@ -74,5 +97,9 @@ button {
   padding: 5px;
   margin-left: 2px;
   margin-right: 2px;
+}
+
+img {
+  max-height: 6rem;
 }
 </style>

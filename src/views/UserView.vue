@@ -82,6 +82,7 @@
       :headers="headersRecipes"
       :items="recipesStore.getRecipes"
       :actions="actionsPropias"
+      @viewItem="viewItemHandler"
       @editItem="editItemHandler"
       @deleteItem="deleteItemHandler"
     />
@@ -98,6 +99,8 @@
     <div v-else>
       <h6>No compraste recetas aún</h6>
     </div>
+
+    <RecipeInfo :recipe="infoRecipe.recipe" />
   </div>
 </template>
 
@@ -109,6 +112,7 @@ import { useRecipesStore } from '@/stores/recipes'
 import type { User } from '@/models/User'
 import type { Recipe } from '@/models/Recipe'
 import CustomTable from '@/components/CustomTable.vue'
+import RecipeInfo from '@/components/RecipeInfo.vue'
 
 const userStore = useUserStore()
 const recipesStore = useRecipesStore()
@@ -119,18 +123,23 @@ const editUser = reactive<{ user: User }>({
   user: { ...userStore.getUser }
 })
 
-const headersRecipes = [
-  'id',
-  'name',
-  'img',
-  'ingredients',
-  'steps',
-  'time',
-  'servings',
-  'tags',
-  'price'
-]
-const actionsPropias = ['edit', 'delete']
+const infoRecipe = reactive<{ recipe: Recipe }>({
+  recipe: {
+    id: '',
+    name: '',
+    img: '',
+    ingredients: [],
+    steps: [],
+    price: 0,
+    time: 0,
+    servings: 0,
+    tags: [],
+    user: ''
+  }
+})
+
+const headersRecipes = ['id', 'name', 'img', 'time', 'servings', 'tags', 'price']
+const actionsPropias = ['view', 'edit', 'delete']
 const actionsCompradas = ['delete']
 
 const editUserInfo = () => {
@@ -145,8 +154,12 @@ const showEditMode = () => {
 
 const createRecipe = () => {}
 
+const viewItemHandler = (id: string) => {
+  const aux = recipesStore.getRecipeById(id)
+  if (aux) infoRecipe.recipe = aux
+}
+
 const editItemHandler = (id: string) => {
-  console.log('recipe: ', id)
   router.push({
     name: 'edit-recipe',
     params: { id: id }

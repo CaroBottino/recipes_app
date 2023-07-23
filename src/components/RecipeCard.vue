@@ -12,7 +12,7 @@
         class="btn btn-primary"
         v-on:click="showInfo"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        data-bs-target="#infoRecipe"
       >
         <i class="bi bi-info-lg"></i>
       </button>
@@ -34,21 +34,6 @@
       >
         <i class="bi bi-cart-plus"></i>
       </button>
-      <!-- 
-        <b-button
-          v-b-modal.modal-info
-          v-on:click="showInfo(item)"
-          :disabled="item.stock < 0"
-        >
-          <b-icon icon="info-lg" class="nav-icon"></b-icon>
-        </b-button>
-        <b-button v-if="isInCart(item)" class="icon-check">
-          <b-icon icon="check-lg"></b-icon>
-        </b-button>
-        <b-button v-else v-on:click="addToCart(item)">
-          <b-icon icon="cart-plus" class="nav-icon"></b-icon>
-        </b-button> 
-        -->
     </footer>
   </div>
 </template>

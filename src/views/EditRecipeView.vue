@@ -32,6 +32,18 @@
             </div>
           </div>
           <div class="row mb-3">
+            <label for="time" class="col-sm-4 col-form-label col-form-label-sm"> User </label>
+            <div class="col-sm-8">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="time"
+                v-model="editRecipe.recipe.user"
+                name="time"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
             <label for="time" class="col-sm-4 col-form-label col-form-label-sm">
               Tiempo (minutos)
             </label>

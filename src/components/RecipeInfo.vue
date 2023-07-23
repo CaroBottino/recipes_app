@@ -2,9 +2,9 @@
   <div>
     <div
       class="modal fade"
-      id="exampleModal"
+      id="infoRecipe"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="infoRecipeLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog">
@@ -39,10 +39,27 @@
               </ul>
             </div>
 
-            <p>🧁 Conseguí la receta completa por ${{ props.recipe.price }}</p>
+            <div v-if="userCanSee(props.recipe.id)">
+              <h6>Pasos a seguir...</h6>
+              <ol>
+                <li v-for="(step, i) in props.recipe.steps" :key="i">
+                  {{ step }}
+                </li>
+              </ol>
+            </div>
+            <div v-else>
+              <p>🧁 Conseguí la receta completa por ${{ props.recipe.price }}</p>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">
+          <div v-if="!userCanSee(props.recipe.id)" class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#cart"
+              aria-controls="cart"
+              @click="addItemToCart(props.recipe)"
+            >
               <i class="bi bi-cart-plus"></i>
             </button>
           </div>
@@ -55,6 +72,9 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { Recipe } from '@/models/Recipe'
+import type { CartItem } from '@/models/CartItem'
+import { useUserStore } from '@/stores/user'
+import { useRecipesStore } from '@/stores/recipes'
 
 const props = defineProps({
   recipe: {
@@ -62,6 +82,36 @@ const props = defineProps({
     required: true
   }
 })
+
+const userStore = useUserStore()
+const recipesStore = useRecipesStore()
+
+const userCanSee = (recipeId: string): boolean => {
+  const r = recipesStore.getRecipeById(recipeId)
+
+  // it's his recipe
+  if (r?.user === userStore.getUser.id) {
+    return true
+  }
+
+  // he bought it
+  if (userStore.getRecipesBought.find((r) => r.id === recipeId)) {
+    return true
+  }
+
+  return false
+}
+
+const addItemToCart = (recipe: Recipe) => {
+  const recipeToCart: CartItem = {
+    id: recipe.id,
+    name: recipe.name,
+    img: recipe.img,
+    price: recipe.price
+  }
+
+  userStore.addItemToCart(recipeToCart)
+}
 </script>
 
 <style scoped>
