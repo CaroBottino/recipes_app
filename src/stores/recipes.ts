@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { computed, reactive } from 'vue'
-import { type Recipe } from '@/models/Recipe'
-import RecipesController from '@/controllers/RecipesController'
 import type { AxiosError } from 'axios'
+import type { Recipe } from '@/models/Recipe'
+import RecipesController from '@/controllers/RecipesController'
 
 export const useRecipesStore = defineStore('recipes', () => {
   const state = reactive({ recipes: <Recipe[]>[] })
@@ -17,25 +17,26 @@ export const useRecipesStore = defineStore('recipes', () => {
     return state.recipes.find((recipe) => recipe.id === id)
   }
 
-  function getRecipesFromApi() {
-    RecipesController.getRecipes().then((res) => {
-      state.recipes = res.data
-    })
+  const getRecipesFromApi = (): Promise<boolean | AxiosError> => {
+    return RecipesController.getRecipes()
+      .then((res) => {
+        state.recipes = res.data
+        return true
+      })
+      .catch((err: AxiosError) => {
+        return err
+      })
   }
 
-  function createRecipe(recipe: Recipe) {
-    RecipesController.createRecipe(recipe)
+  const createRecipe = (recipe: Recipe): Promise<Recipe | AxiosError> => {
+    return RecipesController.createRecipe(recipe)
+      .then((res) => {
+        return res.data
+      })
+      .catch((err: AxiosError) => {
+        return err
+      })
   }
-
-  // const getCategories = async (): Promise<Category[]> => {
-  //   return await CategoriesController.getCategories()
-  //     .then((response: any) => {
-  //       return response.data;
-  //     })
-  //     .catch((e: AxiosError) => {
-  //       throw e.response;
-  //     });
-  // };
 
   const updateRecipe = (recipe: Recipe): Promise<Recipe | AxiosError> => {
     return RecipesController.updateRecipe(recipe.id, recipe)
@@ -47,8 +48,14 @@ export const useRecipesStore = defineStore('recipes', () => {
       })
   }
 
-  function deleteRecipe(id: string) {
-    RecipesController.deleteRecipe(id)
+  const deleteRecipe = (id: string): Promise<boolean | AxiosError> => {
+    return RecipesController.deleteRecipe(id)
+      .then(() => {
+        return true
+      })
+      .catch((err: AxiosError) => {
+        return err
+      })
   }
 
   return {

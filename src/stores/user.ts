@@ -1,5 +1,6 @@
 import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
+import type { AxiosError } from 'axios'
 import type { User } from '@/models/User'
 import type { CartItem } from '@/models/CartItem'
 import UsersController from '@/controllers/UsersController'
@@ -28,24 +29,13 @@ export const useUserStore = defineStore('user', () => {
     let price = 0
 
     state.user.cart.forEach((item) => {
-      price = price + item.price * item.q
+      price = price + item.price
     })
 
     return price
   })
 
-  function createUser(payload: User) {
-    UsersController.createUser(payload).then((res) => {
-      state.user = res.data
-      logged.value = true
-    })
-  }
-
   function loginUser(payload: User) {
-    // UsersController.updateUser(payload.id, payload).then((res) => {
-    //   state.user = res.data
-    //   logged.value = true
-    // })
     state.user = payload
     logged.value = true
   }
@@ -66,18 +56,28 @@ export const useUserStore = defineStore('user', () => {
     logged.value = false
   }
 
-  function editUserInfo(payload: User) {
-    UsersController.updateUser(payload.id, payload).then((res) => {
-      state.user = res.data
-    })
+  const createUser = (payload: User): Promise<boolean | AxiosError> => {
+    return UsersController.createUser(payload)
+      .then((res) => {
+        state.user = res.data
+        logged.value = true
+
+        return true
+      })
+      .catch((err: AxiosError) => {
+        return err
+      })
   }
 
-  function updateItemQ(item: CartItem) {
-    state.user.cart.forEach((i) => {
-      if (i.id === item.id) {
-        i.q = i.q + item.q
-      }
-    })
+  const editUserInfo = (payload: User): Promise<boolean | AxiosError> => {
+    return UsersController.updateUser(payload.id, payload)
+      .then((res) => {
+        state.user = res.data
+        return true
+      })
+      .catch((err: AxiosError) => {
+        return err
+      })
   }
 
   // const getItemFromCart = computed((id: string) => state.user.cart.filter((item) => id === item.id))
@@ -86,11 +86,12 @@ export const useUserStore = defineStore('user', () => {
   }
 
   function addItemToCart(payload: CartItem) {
-    if (getItemFromCart(payload.id).length !== 0) {
-      updateItemQ(payload)
-    } else {
-      state.user.cart.push(payload)
-    }
+    state.user.cart.push(payload)
+  }
+
+  function deleteItemFromCart(id: string) {
+    const aux = state.user.cart.filter((item) => id !== item.id)
+    state.user.cart = aux
   }
 
   return {
@@ -101,10 +102,11 @@ export const useUserStore = defineStore('user', () => {
     cartItemsQ,
     cartPrice,
     getItemFromCart,
-    createUser,
     loginUser,
     logoutUser,
+    createUser,
     editUserInfo,
-    addItemToCart
+    addItemToCart,
+    deleteItemFromCart
   }
 })

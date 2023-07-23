@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type PropType } from 'vue'
+import type { PropType } from 'vue'
 import type { Recipe } from '@/models/Recipe'
 
 const props = defineProps({
@@ -62,8 +62,6 @@ const props = defineProps({
     required: true
   }
 })
-
-const quantity = ref(1)
 </script>
 
 <style scoped>

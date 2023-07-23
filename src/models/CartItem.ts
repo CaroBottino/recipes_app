@@ -3,5 +3,4 @@ export interface CartItem {
   name: string
   img: string
   price: number
-  q: number
 }

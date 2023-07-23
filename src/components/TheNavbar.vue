@@ -49,7 +49,13 @@
             </router-link>
           </li>
           <li>
-            <button type="button" class="btn btn-primary cart-btn">
+            <button
+              type="button"
+              class="btn btn-primary cart-btn"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#cart"
+              aria-controls="cart"
+            >
               <i class="bi bi-cart"></i>
             </button>
           </li>

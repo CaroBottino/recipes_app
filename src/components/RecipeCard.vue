@@ -27,8 +27,10 @@
         v-else
         type="button"
         class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#cart"
+        aria-controls="cart"
+        @click="addItemToCart(props.recipe)"
       >
         <i class="bi bi-cart-plus"></i>
       </button>
@@ -54,6 +56,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { Recipe } from '@/models/Recipe'
+import type { CartItem } from '@/models/CartItem'
 import { useUserStore } from '@/stores/user'
 
 const store = useUserStore()
@@ -69,6 +72,17 @@ const props = defineProps({
 
 const showInfo = () => {
   emits('showInfo', props.recipe)
+}
+
+const addItemToCart = (recipe: Recipe) => {
+  const recipeToCart: CartItem = {
+    id: recipe.id,
+    name: recipe.name,
+    img: recipe.img,
+    price: recipe.price
+  }
+
+  store.addItemToCart(recipeToCart)
 }
 </script>
 
