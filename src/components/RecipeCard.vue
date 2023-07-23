@@ -16,24 +16,26 @@
       >
         <i class="bi bi-info-lg"></i>
       </button>
-      <button
-        v-if="store.getItemFromCart(props.recipe.id).length > 0"
-        type="button"
-        class="btn btn-primary icon-check"
-      >
-        <i class="bi bi-check-lg"></i>
-      </button>
-      <button
-        v-else
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#cart"
-        aria-controls="cart"
-        @click="addItemToCart(props.recipe)"
-      >
-        <i class="bi bi-cart-plus"></i>
-      </button>
+      <template v-if="!userCanSee(props.recipe.id)">
+        <button
+          v-if="store.getItemFromCart(props.recipe.id).length > 0"
+          type="button"
+          class="btn btn-primary icon-check"
+        >
+          <i class="bi bi-check-lg"></i>
+        </button>
+        <button
+          v-else
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#cart"
+          aria-controls="cart"
+          @click="addItemToCart(props.recipe)"
+        >
+          <i class="bi bi-cart-plus"></i>
+        </button>
+      </template>
     </footer>
   </div>
 </template>
@@ -43,8 +45,10 @@ import type { PropType } from 'vue'
 import type { Recipe } from '@/models/Recipe'
 import type { CartItem } from '@/models/CartItem'
 import { useUserStore } from '@/stores/user'
+import { useRecipesStore } from '@/stores/recipes'
 
 const store = useUserStore()
+const recipesStore = useRecipesStore()
 
 const emits = defineEmits(['showInfo'])
 
@@ -57,6 +61,22 @@ const props = defineProps({
 
 const showInfo = () => {
   emits('showInfo', props.recipe)
+}
+
+const userCanSee = (recipeId: string): boolean => {
+  const r = recipesStore.getRecipeById(recipeId)
+
+  // it's his recipe
+  if (r?.user === store.getUser.id) {
+    return true
+  }
+
+  // he bought it
+  if (store.getRecipesBought.find((r) => r.id === recipeId)) {
+    return true
+  }
+
+  return false
 }
 
 const addItemToCart = (recipe: Recipe) => {

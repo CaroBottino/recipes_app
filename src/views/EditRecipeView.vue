@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="row mb-3">
-            <label for="img" class="col-sm-4 col-form-label col-form-label-sm"> Foto </label>
+            <label for="img" class="col-sm-4 col-form-label col-form-label-sm"> Foto (url) </label>
             <div class="col-sm-8">
               <input
                 type="text"
@@ -277,6 +277,8 @@ onBeforeMount(() => {
   padding: 1rem;
   display: flex;
   justify-content: center;
+  max-height: 20rem;
+  max-width: 20rem;
 }
 
 .tag {

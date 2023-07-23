@@ -70,6 +70,61 @@
         "torta", "belga", "cake", "sweet", "chocolate"
       ],
       "userId": "1"
+    },
+    {
+      "id": "3",
+      "name": "Galletas de chocolate",
+      "img": "https://www.paulinacocina.net/wp-content/uploads/2022/04/galletas-de-chocolate-receta.jpg",
+      "ingredients": [
+        "250 gr. de chocolate",
+        "50 gr. Manteca",
+        "100 gr. de Azúcar glass",
+        "2 huevos",
+        "200 gr. de harina de trigo",
+        "1 cc levadura en polvo",
+        "1 cda. de Vainilla",
+        "Sal"
+      ],
+      "steps": [
+        "Fundir el chocolate a baño maría o en el microondas. Sumar la manteca junto a la vainilla y mezclar todo.",
+        "Batir el azúcar y los huevos hasta duplicar el volumen. Por arriba agregar el chocolate derretido y mezclar nuevamente.",
+        "Por último sumar la harina tamizada y la levadura con una pizca de sal. Mezclar lentamente hasta unir por completo.",
+        "Refrigerar la masa por un rato hasta lograr una consistencia más dura.",
+        "Con la masa fría formar las galletas, aplastarlas un poco y colocarlas en una placa de horno dejando una distancia prudente entre cada una.",
+        "Precalentar el horno a 170 °C y hornear durante 10 min. Ir controlando el color y que no se quemen. Las galletas de chocolate deben quedar crocantes por fuera.",
+        "Enfriarlas sobre una rejilla y servir."
+      ],
+      "price": 75,
+      "time": 45,
+      "serving": 20,
+      "tags": [
+        "galletas", "cookies", "chocolate", "sweet"
+      ],
+      "userId": "1"
+    },
+    {
+      "id": "4",
+      "name": "Muffins de vainilla",
+      "img": "https://www.paulinacocina.net/wp-content/uploads/2018/08/muffins-2.png",
+      "ingredients": [
+        "3 huevos",
+        "2 tazas de harina leudante",
+        "1 taza de aceite neutro",
+        "1 taza de azúcar",
+        "Esencia de vainilla"
+      ],
+      "steps": [
+        "En un bol vamos a colocar los 3 huevos y los vamos a batir con el azúcar. La idea es batir con tenedor o batidor hasta que se haga una crema, en el video se ve bien",
+        "Ahora vamos a agregar la mitad de la harina. Si usan harina común le pueden agregar en este paso 1 cda de polvo de hornear. Una vez que esté todo bien integrado, sumamos la esencia de vainilla (bastante, son muffins de vainilla) y el aceite. Este es el paso para agregar un extra si así lo quisiera: unas nueces, coco rallado, unos chips de chocolate. Lo que quieran",
+        "Cuando esté todo bien super integrado, colocamos el resto del harina. Podemos pasar la masa a una manga o rellenar los pirotines o moldes de muffins con una cuchara.",
+        "Llevar los muffins de vainilla a un horno a 180° por unos 20 minutos o hasta que estén. Listo!"
+      ],
+      "price": 75,
+      "time": 30,
+      "serving": 10,
+      "tags": [
+        "muffins", "vainilla", "sweet"
+      ],
+      "userId": "1"
     }
-
 ]
