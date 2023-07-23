@@ -16,26 +16,35 @@
           </div>
           <div class="modal-body">
             <h3>{{ props.recipe.name }}</h3>
-            <p class="my-4">$ {{ props.recipe.price }}</p>
-            <p>Tiempo: {{ props.recipe.time }} minutos</p>
+            <div>
+              <span
+                v-for="(tag, i) in props.recipe.tags"
+                :key="i"
+                class="badge rounded-pill bg-primary tag"
+              >
+                {{ tag }}
+              </span>
+            </div>
+            <div class="desc">
+              <p>⏰ Tiempo: {{ props.recipe.time }} minutos</p>
+              <p>🍽️ Porciones: {{ props.recipe.servings }}</p>
+            </div>
 
             <div>
               <h6>Ingredientes</h6>
               <ul>
-                <li v-for="(step, i) in props.recipe.steps" :key="i">
-                  {{ step }}
+                <li v-for="(ingredient, i) in props.recipe.ingredients" :key="i">
+                  {{ ingredient }}
                 </li>
               </ul>
             </div>
-      
-            <p>tené la receta completa por ${{ props.recipe.price }}</p>
+
+            <p>🧁 Conseguí la receta completa por ${{ props.recipe.price }}</p>
           </div>
           <div class="modal-footer">
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-primary">-</button>
-              <button type="button" class="btn btn-primary" disabled>{{ quantity }}</button>
-              <button type="button" class="btn btn-primary">+</button>
-            </div>
+            <button type="button" class="btn btn-primary">
+              <i class="bi bi-cart-plus"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -66,5 +75,17 @@ img {
 .modal-header {
   padding: 0;
 }
+
+p {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.desc {
+  margin: 10px;
+}
+
+.tag {
+  margin: 3px;
+}
 </style>
-@/models/Recipes

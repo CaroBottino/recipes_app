@@ -5,7 +5,6 @@
       <h4>{{ props.recipe.name }}</h4>
       <p>porciones: {{ props.recipe.servings }}</p>
       <p>tiempo: {{ props.recipe.time }} minutos</p>
-      <p>$ {{ props.recipe.price }}</p>
     </header>
     <footer>
       <button
@@ -115,7 +114,7 @@ const showInfo = () => {
   font-size: larger;
 }
 .card p {
-  font-size: 1rem;
+  font-size: small;
   margin-bottom: 0;
 }
 

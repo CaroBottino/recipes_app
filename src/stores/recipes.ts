@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { computed, reactive } from 'vue'
 import { type Recipe } from '@/models/Recipe'
 import RecipesController from '@/controllers/RecipesController'
+import type { AxiosError } from 'axios'
 
 export const useRecipesStore = defineStore('recipes', () => {
   const state = reactive({ recipes: <Recipe[]>[] })
@@ -26,8 +27,24 @@ export const useRecipesStore = defineStore('recipes', () => {
     RecipesController.createRecipe(recipe)
   }
 
-  function updateRecipe(recipe: Recipe) {
-    RecipesController.updateRecipe(recipe.id, recipe)
+  // const getCategories = async (): Promise<Category[]> => {
+  //   return await CategoriesController.getCategories()
+  //     .then((response: any) => {
+  //       return response.data;
+  //     })
+  //     .catch((e: AxiosError) => {
+  //       throw e.response;
+  //     });
+  // };
+
+  const updateRecipe = (recipe: Recipe): Promise<Recipe | AxiosError> => {
+    return RecipesController.updateRecipe(recipe.id, recipe)
+      .then((res) => {
+        return res.data
+      })
+      .catch((err: AxiosError) => {
+        return err
+      })
   }
 
   function deleteRecipe(id: string) {

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="body">
     <h1>Editar receta</h1>
-    <div class="card-photo">
+    <div class="photo">
       <img :src="editRecipe.recipe.img" class="img-fluid rounded-start" alt="..." />
     </div>
     <div>
@@ -23,7 +23,7 @@
             <label for="img" class="col-sm-4 col-form-label col-form-label-sm"> Foto </label>
             <div class="col-sm-8">
               <input
-                type="email"
+                type="text"
                 class="form-control form-control-sm"
                 id="img"
                 v-model="editRecipe.recipe.img"
@@ -37,10 +37,10 @@
             </label>
             <div class="col-sm-8">
               <input
-                type="text"
+                type="number"
                 class="form-control form-control-sm"
                 id="time"
-                v-model="editRecipe.recipe.time"
+                v-model.number="editRecipe.recipe.time"
                 name="time"
               />
             </div>
@@ -51,11 +51,23 @@
             </label>
             <div class="col-sm-8">
               <input
-                type="text"
+                type="number"
                 class="form-control form-control-sm"
                 id="servings"
-                v-model="editRecipe.recipe.servings"
+                v-model.number="editRecipe.recipe.servings"
                 name="servings"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="price" class="col-sm-4 col-form-label col-form-label-sm"> Precio </label>
+            <div class="col-sm-8">
+              <input
+                type="number"
+                class="form-control form-control-sm"
+                id="price"
+                v-model.number="editRecipe.recipe.price"
+                name="price"
               />
             </div>
           </div>
@@ -98,14 +110,14 @@
             <label for="steps" class="form-label col-form-label-sm">Pasos a seguir</label>
           </div>
           <div class="row mb-3">
-            <ul>
+            <ol>
               <li v-for="(step, i) in editRecipe.recipe.steps" :key="i">
-                {{ i + 1 }} - {{ step }}
+                {{ step }}
                 <button type="button" class="btn btn-primary" @click="deleteStep(step)">
                   <i class="bi bi-trash"></i>
                 </button>
               </li>
-            </ul>
+            </ol>
           </div>
           <div class="row mb-3">
             <div class="col-sm-10">
@@ -119,6 +131,37 @@
             </div>
             <div class="col-sm-2">
               <button type="button" class="btn btn-primary" @click="addStep">
+                <i class="bi bi-plus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="tags" class="col-sm-4 col-form-label col-form-label-sm"> Tags </label>
+            <div class="col-sm-8">
+              <div>
+                <span
+                  v-for="(tag, i) in editRecipe.recipe.tags"
+                  :key="i"
+                  class="badge rounded-pill bg-primary tag"
+                >
+                  {{ tag }}
+                  <button type="button" class="btn btn-tag" @click="deleteTag(tag)">x</button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="newTag"
+                v-model="newTag"
+                name="newTag"
+              />
+            </div>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-primary" @click="addTag">
                 <i class="bi bi-plus"></i>
               </button>
             </div>
@@ -157,6 +200,7 @@ const editRecipe = reactive<{ recipe: Recipe }>({
 })
 const newIngredient = ref('')
 const newStep = ref('')
+const newTag = ref('')
 
 const setRecipe = () => {
   const aux = recipeStore.getRecipeById(recipeId)
@@ -184,11 +228,54 @@ const addStep = () => {
   newStep.value = ''
 }
 
-const editRecipeInfo = () => {}
+const addTag = () => {
+  editRecipe.recipe.tags.push(newTag.value)
+  newTag.value = ''
+}
+
+const deleteTag = (tag: string) => {
+  const aux = editRecipe.recipe.tags.filter((tg) => tg !== tag)
+  editRecipe.recipe.tags = aux
+}
+
+const editRecipeInfo = () => {
+  recipeStore
+    .updateRecipe(editRecipe.recipe)
+    .then(() => {
+      alert('Receta editada con exito')
+    })
+    .catch((err) => {
+      alert('error al editar receta')
+      console.log('err: ', err)
+    })
+}
 
 onBeforeMount(() => {
   setRecipe()
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.body {
+  margin-top: 4rem;
+  margin-bottom: 6rem;
+}
+
+.photo {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.tag {
+  margin: 5px;
+}
+
+.btn-tag {
+  padding: 1px;
+}
+
+li {
+  font-size: small;
+}
+</style>
