@@ -15,7 +15,7 @@
             <img :src="item[header]" class="img-fluid rounded-start" alt="..." />
           </template>
           <template v-else>
-            {{ item[header] }}
+            {{ item[header as keyof Recipe] }}
           </template>
         </td>
         <td v-if="actions">
@@ -44,6 +44,8 @@
 <script setup lang="ts">
 import type { Recipe } from '@/models/Recipe'
 
+const emits = defineEmits(['editItem', 'deleteItem'])
+
 defineProps({
   headers: {
     type: Array<string>,
@@ -59,11 +61,11 @@ defineProps({
 })
 
 const editItem = (itemId: string) => {
-  //this.$emit("editItem", itemId);
+  emits('editItem', itemId)
 }
 
 const deleteItem = (itemId: string) => {
-  //this.$emit("deleteItem", itemId);
+  emits('deleteItem', itemId)
 }
 </script>
 

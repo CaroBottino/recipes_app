@@ -20,6 +20,8 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form> 
         -->
+      </div>
+      <div>
         <ul
           class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
           style="--bs-scroll-height: 100px"
@@ -41,13 +43,15 @@
           </li>
           <li v-else>
             <router-link :to="{ name: 'login' }">
-              <button type="button" class="btn btn-primary">
+              <button type="button" class="btn btn-primary cart-btn">
                 <i class="bi bi-person-circle"></i>
               </button>
             </router-link>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Cart</a>
+          <li>
+            <button type="button" class="btn btn-primary cart-btn">
+              <i class="bi bi-cart"></i>
+            </button>
           </li>
         </ul>
       </div>
@@ -68,11 +72,20 @@ const signOut = () => {
 <style scoped>
 button {
   border-radius: 50%;
+  margin-right: 2px;
+  margin-left: 2px;
+  min-height: 1rem;
 }
 
 .avatar {
   width: 50px;
   border-radius: 50%;
   border-style: none;
+}
+
+.cart-btn {
+  margin-top: 6px;
+  min-width: 3rem;
+  min-height: 3rem;
 }
 </style>

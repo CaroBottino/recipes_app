@@ -8,17 +8,13 @@ export const useRecipesStore = defineStore('recipes', () => {
 
   const getRecipes = computed(() => state.recipes)
 
-  // const getRecipesByUser = computed((userId: string) =>
-  //   state.recipes.filter((recipe) => recipe.user === userId)
-  // )
   function getRecipesByUser(userId: string) {
     return state.recipes.filter((recipe) => recipe.user === userId)
   }
 
-  const getRecipeById = computed((id: string) => state.recipes.find((recipe) => recipe.id === id))
-  // function getRecipeById(id: string) {
-  //   return state.Recipes.find((Recipe) => Recipe.id === id)
-  // }
+  function getRecipeById(id: string) {
+    return state.recipes.find((recipe) => recipe.id === id)
+  }
 
   function getRecipesFromApi() {
     RecipesController.getRecipes().then((res) => {

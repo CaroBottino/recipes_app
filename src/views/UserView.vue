@@ -2,52 +2,63 @@
   <div class="body">
     <h1 class="user-header">Información de usuario</h1>
     <div class="col d-flex justify-content-center">
-      <div class="card mb-3" style="max-width: 540px">
+      <div class="card mb-3">
         <div class="row g-0">
-          <div class="col-md-4">
+          <div class="col-md-6 card-photo">
             <img :src="userStore.getUser.avatar" class="img-fluid rounded-start" alt="..." />
           </div>
-          <div class="col-md-8">
+          <div class="col-md-6">
             <div class="card-body">
-              <h5 class="card-title">{{ userStore.getUser.fullname }}</h5>
+              <h4 class="card-title">{{ userStore.getUser.fullname }}</h4>
               <div v-if="edit">
-                <div>
-                  <label for="fullname">Fullname</label>
-                  <input
-                    type="text"
-                    id="fullname"
-                    v-model="editUser.user.fullname"
-                    name="fullname"
-                  />
-                </div>
-                <div>
-                  <label for="email">Email</label>
-                  <input type="email" id="email" v-model="editUser.user.email" name="email" />
-                </div>
-                <div>
-                  <label for="pass">Password</label>
-                  <input type="text" id="pass" v-model="editUser.user.pass" name="pass" />
-                </div>
-                <div>
-                  <label for="role">Role</label>
-                  <select id="role" v-model="editUser.user.role">
-                    <option value="admin">admin</option>
-                    <option value="buyer">buyer</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="fullname">Avatar</label>
-                  <input type="text" id="avatar" v-model="editUser.user.avatar" name="avatar" />
-                </div>
+                <form @submit.prevent="editUserInfo">
+                  <div class="mb-3">
+                    <label for="fullname" class="form-label col-form-label-sm">Fullname</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="fullname"
+                      v-model="editUser.user.fullname"
+                      name="fullname"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label col-form-label-sm">Email</label>
+                    <input
+                      type="email"
+                      class="form-control form-control-sm"
+                      id="email"
+                      v-model="editUser.user.email"
+                      name="email"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label col-form-label-sm">Password</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="pass"
+                      v-model="editUser.user.pass"
+                      name="pass"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label col-form-label-sm">Avatar</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="avatar"
+                      v-model="editUser.user.avatar"
+                      name="avatar"
+                    />
+                  </div>
 
-                <button v-on:click="editUserInfo">
-                  <i class="bi bi-check"></i>
-                </button>
+                  <button type="submit" class="btn btn-primary"><i class="bi bi-check"></i></button>
+                </form>
               </div>
               <div v-else>
                 <p class="card-text">email: {{ userStore.getUser.email }}</p>
                 <p class="card-text">Password: {{ userStore.getUser.pass }}</p>
-                <p class="card-text">role: {{ userStore.getUser.role }}</p>
 
                 <button type="button" class="btn btn-primary" v-on:click="showEditMode">
                   <i class="bi bi-pencil"></i>
@@ -71,8 +82,8 @@
       :headers="headersRecipes"
       :items="recipesStore.getRecipes"
       :actions="actionsPropias"
-      @editItem="onEditItem"
-      @deleteItem="onDeleteItem"
+      @editItem="editItemHandler"
+      @deleteItem="deleteItemHandler"
     />
 
     <h3>Tus recetas compradas</h3>
@@ -92,13 +103,16 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useRecipesStore } from '@/stores/recipes'
 import type { User } from '@/models/User'
+import type { Recipe } from '@/models/Recipe'
 import CustomTable from '@/components/CustomTable.vue'
 
 const userStore = useUserStore()
 const recipesStore = useRecipesStore()
+const router = useRouter()
 
 const edit = ref(false)
 const editUser = reactive<{ user: User }>({
@@ -131,9 +145,15 @@ const showEditMode = () => {
 
 const createRecipe = () => {}
 
-const onEditItem = () => {}
+const editItemHandler = (id: string) => {
+  console.log('recipe: ', id)
+  router.push({
+    name: 'edit-recipe',
+    params: { id: id }
+  })
+}
 
-const onDeleteItem = () => {}
+const deleteItemHandler = (id: string) => {}
 
 const deleteBoughtHandler = () => {}
 </script>
@@ -155,15 +175,20 @@ const deleteBoughtHandler = () => {}
 
 label {
   margin-right: 1rem;
+  margin-bottom: 0;
 }
 
 img {
-  min-height: 16rem;
-  min-width: 16rem;
+  max-height: 16rem;
+  max-width: 16rem;
   padding: 1rem;
 }
 
 .card-text {
   align-items: flex-end;
+}
+
+.card-body {
+  margin-left: 2rem;
 }
 </style>
