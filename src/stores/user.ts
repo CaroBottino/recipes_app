@@ -56,7 +56,7 @@ export const useUserStore = defineStore('user', () => {
     logged.value = false
   }
 
-  const createUser = (payload: User): Promise<boolean | AxiosError> => {
+  const registerUser = (payload: User): Promise<boolean | AxiosError> => {
     return UsersController.createUser(payload)
       .then((res) => {
         state.user = res.data
@@ -104,7 +104,7 @@ export const useUserStore = defineStore('user', () => {
     getItemFromCart,
     loginUser,
     logoutUser,
-    createUser,
+    registerUser,
     editUserInfo,
     addItemToCart,
     deleteItemFromCart

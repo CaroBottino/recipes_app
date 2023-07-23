@@ -20,7 +20,7 @@ import UsersController from '@/controllers/UsersController'
 import type { User } from '@/models/User'
 import { useUserStore } from '@/stores/user'
 
-const store = useUserStore()
+const userStore = useUserStore()
 const errors = ref<string[]>([])
 
 const router = useRouter()
@@ -38,11 +38,22 @@ const onLoginSubmit = (form: { email: string; pass: string }) => {
       return
     }
 
-    store.loginUser(found)
+    userStore.loginUser(found)
     router.push({ name: 'user' })
   })
 }
-const onRegisterSubmit = () => {}
+const onRegisterSubmit = (form: User) => {
+  userStore
+    .registerUser(form)
+    .then(() => {
+      // alert('Receta editada con exito')
+      router.push({ name: 'user' })
+    })
+    .catch((err) => {
+      alert('error al crear usuario')
+      console.log('err: ', err)
+    })
+}
 </script>
 
 <style scoped></style>
