@@ -46,7 +46,6 @@ const onRegisterSubmit = (form: User) => {
   userStore
     .registerUser(form)
     .then(() => {
-      // alert('Receta editada con exito')
       router.push({ name: 'user' })
     })
     .catch((err) => {
@@ -56,4 +55,9 @@ const onRegisterSubmit = (form: User) => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.body {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+</style>

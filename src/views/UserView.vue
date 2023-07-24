@@ -1,6 +1,8 @@
 <template>
   <div class="body">
-    <h1 class="user-header">Información de usuario</h1>
+    <div class="centered">
+      <h1 class="user-header">Información de usuario</h1>
+    </div>
     <div class="col d-flex justify-content-center">
       <div class="card mb-3">
         <div class="row g-0">
@@ -70,8 +72,10 @@
       </div>
     </div>
 
-    <h3>Tus recetas</h3>
-    <div class="new-item">
+    <div class="centered">
+      <h3>Tus recetas</h3>
+    </div>
+    <div class="centered new-item">
       <button type="button" class="btn btn-primary" @click="createRecipe">
         <i class="bi bi-file-earmark-plus"></i>
         Nueva Receta
@@ -87,12 +91,15 @@
       @deleteItem="deleteItemHandler"
     />
 
-    <h3>Tus recetas compradas</h3>
+    <div class="centered user-header">
+      <h3>Tus recetas compradas</h3>
+    </div>
     <div v-if="userStore.getRecipesBought.length > 0">
       <CustomTable
         :headers="headersRecipes"
         :items="userStore.getRecipesBought"
         :actions="actionsCompradas"
+        @viewItem="viewItemHandler"
         @deleteItem="deleteBoughtHandler"
       />
     </div>
@@ -140,7 +147,7 @@ const infoRecipe = reactive<{ recipe: Recipe }>({
 
 const headersRecipes = ['id', 'name', 'img', 'time', 'servings', 'tags', 'price']
 const actionsPropias = ['view', 'edit', 'delete']
-const actionsCompradas = ['delete']
+const actionsCompradas = ['view', 'delete']
 
 const editUserInfo = () => {
   userStore.editUserInfo(editUser.user)
@@ -194,8 +201,18 @@ const deleteBoughtHandler = (id: string) => {
 .body {
   margin-bottom: 6rem;
 }
+
+.centered {
+  display: flex;
+  justify-content: center;
+}
 .user-header {
-  padding-top: 25px;
+  padding-top: 3rem;
+}
+
+.new-item {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .card {

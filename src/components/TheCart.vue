@@ -53,8 +53,20 @@
     <div class="offcanvas-footer">
       <div class="row">
         <div class="col"><strong>Total:</strong> $ {{ userStore.cartPrice }}</div>
-        <div class="col">
-          <button type="button" class="btn btn-primary btn-sm" @click="buyItems">Comprar!</button>
+        <div class="col" v-if="userStore.getUser.id === ''">
+          <button type="button" class="btn btn-primary btn-sm" @click="registerUser">
+            Registrate y comprá ✨
+          </button>
+        </div>
+        <div class="col" v-else>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            @click="buyItems"
+            :disabled="userStore.getUserCart.length === 0"
+          >
+            Comprar!
+          </button>
         </div>
       </div>
     </div>
@@ -62,14 +74,23 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+// import { Modal } from 'bootstrap'
 import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
+const router = useRouter()
 
 const buyItems = () => {
   userStore.buyItems().then(() => {
     alert('items comprados!')
+    // Modal.getInstance('#cart')?.hide()
   })
+}
+
+const registerUser = () => {
+  router.push({ name: 'login' })
+  // Modal.getInstance('#cart')?.hide()
 }
 </script>
 

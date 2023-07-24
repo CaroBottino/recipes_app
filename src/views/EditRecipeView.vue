@@ -1,14 +1,16 @@
 <template>
   <div class="body">
-    <div v-if="recipeId === 'new'">
+    <div v-if="recipeId === 'new'" class="centered">
       <h1>Nueva receta</h1>
     </div>
-    <div v-else>
+    <div v-else class="centered">
       <h1>Editar receta</h1>
     </div>
 
-    <div class="photo">
-      <img :src="editRecipe.recipe.img" class="img-fluid rounded-start" alt="..." />
+    <div class="centered">
+      <div class="photo">
+        <img :src="editRecipe.recipe.img" class="img-fluid rounded-start" alt="..." />
+      </div>
     </div>
     <div>
       <div class="card-body">
@@ -87,7 +89,7 @@
                   {{ ingredient }}
                   <button
                     type="button"
-                    class="btn btn-primary"
+                    class="btn btn-primary btn-action"
                     @click="deleteIngredient(ingredient)"
                   >
                     <i class="bi bi-trash"></i>
@@ -107,7 +109,7 @@
               />
             </div>
             <div class="col-sm-2">
-              <button type="button" class="btn btn-primary" @click="addIngredient">
+              <button type="button" class="btn btn-primary btn-action" @click="addIngredient">
                 <i class="bi bi-plus"></i>
               </button>
             </div>
@@ -119,7 +121,7 @@
             <ol>
               <li v-for="(step, i) in editRecipe.recipe.steps" :key="i">
                 {{ step }}
-                <button type="button" class="btn btn-primary" @click="deleteStep(step)">
+                <button type="button" class="btn btn-primary btn-action" @click="deleteStep(step)">
                   <i class="bi bi-trash"></i>
                 </button>
               </li>
@@ -136,7 +138,7 @@
               />
             </div>
             <div class="col-sm-2">
-              <button type="button" class="btn btn-primary" @click="addStep">
+              <button type="button" class="btn btn-primary btn-action" @click="addStep">
                 <i class="bi bi-plus"></i>
               </button>
             </div>
@@ -167,13 +169,15 @@
               />
             </div>
             <div class="col-sm-2">
-              <button type="button" class="btn btn-primary" @click="addTag">
+              <button type="button" class="btn btn-primary btn-action" @click="addTag">
                 <i class="bi bi-plus"></i>
               </button>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary">Guardar receta!</button>
+          <div class="centered">
+            <button type="submit" class="btn btn-primary">Guardar receta!</button>
+          </div>
         </form>
       </div>
     </div>
@@ -182,12 +186,13 @@
 
 <script setup lang="ts">
 import { ref, reactive, onBeforeMount } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import type { Recipe } from '@/models/Recipe'
 import { useRecipesStore } from '@/stores/recipes'
 import { useUserStore } from '@/stores/user'
 
 const route = useRoute()
+const router = useRouter()
 const recipeId: string = route.params.id.toString()
 const recipeStore = useRecipesStore()
 const userStore = useUserStore()
@@ -254,6 +259,7 @@ const editRecipeInfo = () => {
         alert('Receta creada con exito')
 
         recipeStore.getRecipesFromApi()
+        router.push({ name: 'user' })
       })
       .catch((err) => {
         alert('error al crear receta')
@@ -266,6 +272,7 @@ const editRecipeInfo = () => {
         alert('Receta editada con exito')
 
         recipeStore.getRecipesFromApi()
+        router.push({ name: 'user' })
       })
       .catch((err) => {
         alert('error al editar receta')
@@ -285,10 +292,13 @@ onBeforeMount(() => {
   margin-bottom: 6rem;
 }
 
-.photo {
-  padding: 1rem;
+.centered {
   display: flex;
   justify-content: center;
+}
+
+.photo {
+  padding: 1rem;
   max-height: 20rem;
   max-width: 20rem;
 }
@@ -303,5 +313,11 @@ onBeforeMount(() => {
 
 li {
   font-size: small;
+}
+
+.btn-action {
+  border-radius: 50%;
+  size: small;
+  margin: 3px;
 }
 </style>

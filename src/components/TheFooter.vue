@@ -1,6 +1,6 @@
 <template>
   <footer class="footer mt-auto py-3 fixed-bottom">
-    <div class="container">
+    <div class="container footer">
       <p class="footer-label">
         <a href="/#">Back to top</a>
         · © 2023 Carolina Bottino, Inc. ·
@@ -17,5 +17,10 @@
 <style scoped>
 footer {
   background-color: lightgrey;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
 }
 </style>
