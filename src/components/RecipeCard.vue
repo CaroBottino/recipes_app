@@ -97,14 +97,6 @@ const addItemToCart = (recipe: Recipe) => {
   background-color: green;
 }
 
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 80vw;
-  margin: 4rem auto;
-}
-
 .card {
   position: relative;
   margin: 2rem;
@@ -151,7 +143,14 @@ const addItemToCart = (recipe: Recipe) => {
   position: absolute;
   bottom: 0;
   right: 0;
+  left: 0;
   margin: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
 }
 </style>
-@/models/Recipes
