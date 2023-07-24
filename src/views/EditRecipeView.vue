@@ -1,6 +1,12 @@
 <template>
   <div class="body">
-    <h1>Editar receta</h1>
+    <div v-if="recipeId === 'new'">
+      <h1>Nueva receta</h1>
+    </div>
+    <div v-else>
+      <h1>Editar receta</h1>
+    </div>
+
     <div class="photo">
       <img :src="editRecipe.recipe.img" class="img-fluid rounded-start" alt="..." />
     </div>
@@ -28,18 +34,6 @@
                 id="img"
                 v-model="editRecipe.recipe.img"
                 name="img"
-              />
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label for="time" class="col-sm-4 col-form-label col-form-label-sm"> User </label>
-            <div class="col-sm-8">
-              <input
-                type="text"
-                class="form-control form-control-sm"
-                id="time"
-                v-model="editRecipe.recipe.user"
-                name="time"
               />
             </div>
           </div>
@@ -121,7 +115,7 @@
           <div class="row mb-3">
             <label for="steps" class="form-label col-form-label-sm">Pasos a seguir</label>
           </div>
-          <div class="row mb-3">
+          <div class="row mb-3" v-if="editRecipe.recipe.steps.length > 0">
             <ol>
               <li v-for="(step, i) in editRecipe.recipe.steps" :key="i">
                 {{ step }}
@@ -191,23 +185,25 @@ import { ref, reactive, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import type { Recipe } from '@/models/Recipe'
 import { useRecipesStore } from '@/stores/recipes'
+import { useUserStore } from '@/stores/user'
 
 const route = useRoute()
 const recipeId: string = route.params.id.toString()
 const recipeStore = useRecipesStore()
+const userStore = useUserStore()
 
 const editRecipe = reactive<{ recipe: Recipe }>({
   recipe: {
     id: '',
     name: '',
-    img: '',
+    img: 'https://img.freepik.com/vector-gratis/ilustracion-icono-dibujos-animados-pastel-taza-concepto-icono-pasteleria-alimentos-aislado-estilo-dibujos-animados-plana_138676-2571.jpg?w=2000',
     ingredients: [],
     steps: [],
     price: 0,
     time: 0,
     servings: 0,
     tags: [],
-    user: ''
+    user: userStore.getUser.id
   }
 })
 const newIngredient = ref('')
@@ -251,15 +247,31 @@ const deleteTag = (tag: string) => {
 }
 
 const editRecipeInfo = () => {
-  recipeStore
-    .updateRecipe(editRecipe.recipe)
-    .then(() => {
-      alert('Receta editada con exito')
-    })
-    .catch((err) => {
-      alert('error al editar receta')
-      console.log('err: ', err)
-    })
+  if (recipeId === 'new') {
+    recipeStore
+      .createRecipe(editRecipe.recipe)
+      .then(() => {
+        alert('Receta creada con exito')
+
+        recipeStore.getRecipesFromApi()
+      })
+      .catch((err) => {
+        alert('error al crear receta')
+        console.log('err: ', err)
+      })
+  } else {
+    recipeStore
+      .updateRecipe(editRecipe.recipe)
+      .then(() => {
+        alert('Receta editada con exito')
+
+        recipeStore.getRecipesFromApi()
+      })
+      .catch((err) => {
+        alert('error al editar receta')
+        console.log('err: ', err)
+      })
+  }
 }
 
 onBeforeMount(() => {

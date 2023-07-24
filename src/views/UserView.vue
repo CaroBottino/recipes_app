@@ -152,7 +152,12 @@ const showEditMode = () => {
   edit.value = !edit.value
 }
 
-const createRecipe = () => {}
+const createRecipe = () => {
+  router.push({
+    name: 'edit-recipe',
+    params: { id: 'new' }
+  })
+}
 
 const viewItemHandler = (id: string) => {
   const aux = recipesStore.getRecipeById(id)
