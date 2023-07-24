@@ -26,14 +26,14 @@
           class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
           style="--bs-scroll-height: 100px"
         >
-          <li v-if="store.logged">
+          <li v-if="userStore.logged">
             <button
               type="button"
               class="btn logged-user"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <img :src="store.getUser.avatar" class="avatar" alt="..." />
+              <img :src="userStore.getUser.avatar" class="avatar" alt="..." />
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarScrollingDropdown">
               <li><router-link :to="{ name: 'user' }"> Profile </router-link></li>
@@ -66,12 +66,15 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
-const store = useUserStore()
+const userStore = useUserStore()
+const router = useRouter()
 
 const signOut = () => {
-  console.log('signOut')
+  userStore.logoutUser()
+  router.push({ name: 'home' })
 }
 </script>
 

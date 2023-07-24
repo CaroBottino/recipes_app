@@ -66,7 +66,11 @@ import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
 
-const buyItems = () => {}
+const buyItems = () => {
+  userStore.buyItems().then(() => {
+    alert('items comprados!')
+  })
+}
 </script>
 
 <style scoped>

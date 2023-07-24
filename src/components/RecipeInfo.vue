@@ -107,7 +107,8 @@ const addItemToCart = (recipe: Recipe) => {
     id: recipe.id,
     name: recipe.name,
     img: recipe.img,
-    price: recipe.price
+    price: recipe.price,
+    user: recipe.user
   }
 
   userStore.addItemToCart(recipeToCart)
