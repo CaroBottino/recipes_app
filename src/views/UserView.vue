@@ -185,7 +185,9 @@ const deleteItemHandler = (id: string) => {
     })
 }
 
-const deleteBoughtHandler = () => {}
+const deleteBoughtHandler = (id: string) => {
+  userStore.deleteItemFromBought(id)
+}
 </script>
 
 <style scoped>

@@ -89,7 +89,6 @@ export const useUserStore = defineStore('user', () => {
       })
   }
 
-  // const getItemFromCart = computed((id: string) => state.user.cart.filter((item) => id === item.id))
   function getItemFromCart(id: string) {
     return state.user.cart.filter((item) => id === item.id)
   }
@@ -136,6 +135,13 @@ export const useUserStore = defineStore('user', () => {
       })
   }
 
+  function deleteItemFromBought(id: string) {
+    const aux = state.user.bought.filter((item) => id !== item.id)
+    state.user.bought = aux
+
+    editUserInfo(state.user)
+  }
+
   return {
     logged,
     getUser,
@@ -143,13 +149,14 @@ export const useUserStore = defineStore('user', () => {
     getRecipesBought,
     cartItemsQ,
     cartPrice,
-    getItemFromCart,
     loginUser,
     logoutUser,
     registerUser,
     editUserInfo,
     addItemToCart,
+    getItemFromCart,
     deleteItemFromCart,
-    buyItems
+    buyItems,
+    deleteItemFromBought
   }
 })
