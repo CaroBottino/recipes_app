@@ -51,12 +51,18 @@
           <li>
             <button
               type="button"
-              class="btn btn-primary cart-btn"
+              class="btn btn-primary cart-btn position-relative"
               data-bs-toggle="offcanvas"
               data-bs-target="#cart"
               aria-controls="cart"
             >
               <i class="bi bi-cart"></i>
+              <span
+                v-if="userStore.cartItemsQ > 0"
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              >
+                {{ userStore.cartItemsQ }}
+              </span>
             </button>
           </li>
         </ul>
