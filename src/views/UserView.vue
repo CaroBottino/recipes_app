@@ -171,7 +171,19 @@ const editItemHandler = (id: string) => {
   })
 }
 
-const deleteItemHandler = (id: string) => {}
+const deleteItemHandler = (id: string) => {
+  recipesStore
+    .deleteRecipe(id)
+    .then(() => {
+      alert('Receta eliminada')
+
+      recipesStore.getRecipesFromApi()
+    })
+    .catch((err) => {
+      alert('error al eliminar receta')
+      console.log('err: ', err)
+    })
+}
 
 const deleteBoughtHandler = () => {}
 </script>
