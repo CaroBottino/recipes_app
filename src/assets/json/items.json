@@ -126,5 +126,153 @@
         "muffins", "vainilla", "sweet"
       ],
       "userId": "1"
+    },
+    {
+      "id": "4",
+      "name": "Pancakes",
+      "img": "https://www.paulinacocina.net/wp-content/uploads/2023/05/receta-pancakes-esponjosos.jpg",
+      "ingredients": [
+        "2 huevos",
+        "1 pizca de sal",
+        "3 cdas. harina integral",
+        "3 cdas harina de trigo  0000",
+        "250 de leche",
+        "esencia de vainilla",
+        "80 gr de manteca derretida",
+        "1/2 cdita de polvo para hornear",
+        "3 cucharadas de azúcar opcional si son dulces.",
+        "Para acompañar: Sirope, miel , frutos secos, frutas frescas, chocolate, mantequilla de maní, dulce de leche."
+      ],
+      "steps": [
+        "Colocar un huevo en un bowl con la pizca de sal y batir.",
+        "Agregar la harina integral y la harina 0000 y mezclar bien hasta unir. Sumar un chorrito de leche para batir más fácil.",
+        "Poner la esencia de vainilla y el azúcar en caso de quererlos dulces. Sumar el polvo de hornear y batir enérgicamente. Agregar la manteca derretida.",
+        "La preparación va a quedar más bien líquida. Llevar media hora a la heladera, es importante este paso para que la harina absorba el líquido y se ponga más espesa.",
+        "En una sartén antiadherente con un poco de manteca o spray de aceite, colocar unas dos cucharadas de preparación. Dorar de ambos lados y servir."
+      ],
+      "price": 75,
+      "time": 20,
+      "serving": 10,
+      "tags": [
+        "pancakes", "vainilla", "sweet"
+      ],
+      "userId": "3"
+    },
+    {
+      "id": "5",
+      "name": "Pan de queso",
+      "img": "https://www.comedera.com/wp-content/uploads/2022/03/pan-de-queso.jpg",
+      "ingredients": [
+        "500 gr  harina de trigo",
+        "20 gr de azúcar",
+        "90 gr de mantequilla",
+        "100 ml de leche",
+        "190 gr de queso semiduro rallado (que no sea muy salado)",
+        "15 gr de levadura seca",
+        "1 cda de sal"
+      ],
+      "steps": [
+        "Primero, derrite la mantequilla por 25 segundos en el microondas. ",
+        "En un bol, coloca la harina en forma de volcán. En el centro incorpora la sal, la azúcar, la levadura y luego mezcla muy bien hasta unir todos los ingredientes secos.",
+        "Posteriormente, añade poco a poco la leche, la mantequilla y el queso semiduro rallado mientras mezclamos para tener obtener una masa suave.",
+        "Haz de tu masa una bola y déjala reposar durante una hora, tápala con film o un pañito húmedo en un lugar cálido.",
+        "Una vez la masa aumente su tamaño, córtala en tamaños iguales para luego hacer las bolitas del mismo tamaño.",
+        "Vamos distribuyendo las bolitas en una bandeja para hornear, previamente engrasada y con un mínimo de separación de 5cm entre cada bolita. Dejamos reposar 30 minutos.",
+        "Precalentamos el horno a 175° grados centígrados.",
+        "Después barnizas cada pan de queso con huevo batido para darle un tono dorado por encima. Horneamos durante 20 minutos o hasta que estén bien cocidos.",
+        "Los panes de queso deberán tener un tono dorado avellanado y se deben notar el queso más tostadito.",
+        "Prepárate para disfrutarlos."
+      ],
+      "price": 75,
+      "time": 120,
+      "serving": 10,
+      "tags": [
+        "cheese", "queso", "pan"
+      ],
+      "userId": "3"
+    },
+    {
+      "id": "6",
+      "name": "Caramel Macchiato",
+      "img": "https://cdn7.kiwilimon.com/recetaimagen/36988/640x426/46353.jpg.webp",
+      "ingredients": [
+        "1/2 tazas de leche, fría",
+        "1/2 tazas de agua, caliente",
+        "2 cucharadas de café soluble",
+        "1 cucharadita de jarabe de vainilla",
+        "2 cucharadas de caramelo",
+        "suficiente de caramelo, para decorar"
+      ],
+      "steps": [
+        "Para hacer la espuma de leche, en un recipiente con tapa agita la leche por 10 minutos.",
+        "Para hacer el espresso, en una taza con el agua caliente añade las dos cucharadas de café soluble y mezcla.",
+        "Vierte en un vaso el jarabe de vainilla, luego el caramelo, media taza de espuma de leche y, finalmente, vierte el café espresso lentamente en forma de hilo. Decora con caramelo."
+      ],
+      "price": 5,
+      "time": 15,
+      "serving": 1,
+      "tags": [
+        "cafe", "coffee", "dulce"
+      ],
+      "userId": "3"
+    },
+    {
+      "id": "7",
+      "name": "Café Moka",
+      "img": "https://cdn7.kiwilimon.com/recetaimagen/36987/640x426/46351.jpg.webp",
+      "ingredients": [
+        "1/2 tazas de leche, fría",
+        "1/2 tazas de agua, caliente",
+        "1 cucharadas de café soluble",
+        "2 cucharadas de jarabe de chocolate",
+        "1/2 tazas de leche, caliente"
+      ],
+      "steps": [
+        "Para hacer la espuma de leche, en un recipiente con tapa agita la leche por 10 minutos.",
+        "Para hacer el café soluble, en una taza con el agua caliente agrega una cucharada de café soluble y mezcla.",
+        "Cubre las paredes de la taza con el jarabe de chocolate, vierte el café que preparaste, llena ¾ partes con la leche y añade la espuma de leche hasta llegar al borde."
+      ],
+      "price": 3,
+      "time": 20,
+      "serving": 1,
+      "tags": [
+        "cafe", "coffee", "dulce"
+      ],
+      "userId": "3"
+    },
+    {
+      "id": "8",
+      "name": "Donuts",
+      "img": "https://s1.eestatic.com/2020/05/07/cocinillas/recetas/postres/reposteria-postres_488211764_151581852_1706x960.jpg",
+      "ingredients": [
+        "Harina de trigo, 475 g para la masa y 50 g máximo para trabajarla en la encimera",
+        "Leche templada, 160 ml",
+        "Agua templada, 75 ml",
+        "Levadura fresca de panadería, 25 g o el equivalente en levadura seca",
+        "Sirope de ágave, 30 g",
+        "Sal fina, 5 g",
+        "Mantequilla, 50 g",
+        "Huevo, 1",
+        "Para el glaseado de azúcar",
+        "Azúcar glas, 60 g",
+        "Leche, 2 cucharadas"
+      ],
+      "steps": [
+        "En el bol de la amasadora ponemos los 475 g de harina. Echamos la sal y desmenuzamos la levadura frotándola con un poco de harina (recordad que la sal no debe tocar a la levadura).",
+        "Hacemos un hueco en el centro y echamos la leche y el agua templadas, el sirope de ágave, la mantequilla a temperatura ambiente y el huevo. Mezclamos durante 2 minutos a velocidad lenta y amasamos durante 10 minutos a velocidad rápida hasta que la masa esté lisa y elástica.",
+        "Enharinamos la encimera con un poco de la harina reservada y volcamos la masa. Terminamos de amasar a mano durante un par de minutos hasta formar una bola que dejaremos reposar durante hora y media en un bol tapada con un trapo limpio.",
+        "Cuando la masa haya doblado su volumen, la pasamos de nuevo a la encimera enharinada y la aplastamos con las manos hasta tener una lámina de 1,5 cm de espesor.",
+        "Vamos cortando donuts, boleando los recortes de masa para estirarlos de nuevo y seguir cortando donuts y vamos dejando cada uno sobre un cuadrado de papel de horno que nos ayudará a la hora de freírlos sin que pierdan la forma. Los dejamos reposar media hora.",
+        "Podemos freírlos en sartén o en freidora. Yo esta vez he usado la freidora porque me resulta más fácil controlar la temperatura. Con un minuto por cada lado a 175 ºC quedan perfectos y, como veis en las fotos, se echan en el aceite con el papel para que no pierdan la forma. Según se fríen se van dejando sobre una rejilla para que escurran el exceso de grasa.",
+        "Para hacer la glasa, mezclamos el azúcar glacè con la leche en un cuenco de tamaño similar al de nuestros donuts y vamos mojando nuestros donuts caseros por ambos lados. Los dejamos de nuevo sobre la rejilla para que laa glasa se seque ligeramente.",
+        "Si en vez de donuts clásicos eres más de donuts bombón, solo tienes que fundir unas cuantas onzas de tu chocolate favorito en el microondas e ir bañando los donuts en él." 
+      ],
+      "price": 3,
+      "time": 30,
+      "serving": 20,
+      "tags": [
+        "donuts", "donas", "dulce"
+      ],
+      "userId": "3"
     }
 ]

@@ -80,7 +80,7 @@
 
     <CustomTable
       :headers="headersRecipes"
-      :items="recipesStore.getRecipes"
+      :items="recipesStore.getRecipesByUser(userStore.getUser.id)"
       :actions="actionsPropias"
       @viewItem="viewItemHandler"
       @editItem="editItemHandler"
