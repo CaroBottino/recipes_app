@@ -25,6 +25,9 @@
                 v-model="editRecipe.recipe.name"
                 name="name"
               />
+              <span v-if="v$.name.$error" class="error">
+                {{ v$.name.$errors[0].$message }}
+              </span>
             </div>
           </div>
           <div class="row mb-3">
@@ -37,6 +40,9 @@
                 v-model="editRecipe.recipe.img"
                 name="img"
               />
+              <span v-if="v$.img.$error" class="error">
+                {{ v$.img.$errors[0].$message }}
+              </span>
             </div>
           </div>
           <div class="row mb-3">
@@ -51,6 +57,9 @@
                 v-model.number="editRecipe.recipe.time"
                 name="time"
               />
+              <span v-if="v$.time.$error" class="error">
+                {{ v$.time.$errors[0].$message }}
+              </span>
             </div>
           </div>
           <div class="row mb-3">
@@ -65,6 +74,9 @@
                 v-model.number="editRecipe.recipe.servings"
                 name="servings"
               />
+              <span v-if="v$.servings.$error" class="error">
+                {{ v$.servings.$errors[0].$message }}
+              </span>
             </div>
           </div>
           <div class="row mb-3">
@@ -77,6 +89,9 @@
                 v-model.number="editRecipe.recipe.price"
                 name="price"
               />
+              <span v-if="v$.price.$error" class="error">
+                {{ v$.price.$errors[0].$message }}
+              </span>
             </div>
           </div>
           <div class="row mb-3">
@@ -107,6 +122,9 @@
                 v-model="newIngredient"
                 name="servings"
               />
+              <span v-if="v$.ingredients.$error" class="error">
+                {{ v$.ingredients.$errors[0].$message }}
+              </span>
             </div>
             <div class="col-sm-2">
               <button type="button" class="btn btn-primary btn-action" @click="addIngredient">
@@ -136,6 +154,9 @@
                 v-model="newStep"
                 name="newStep"
               />
+              <span v-if="v$.steps.$error" class="error">
+                {{ v$.steps.$errors[0].$message }}
+              </span>
             </div>
             <div class="col-sm-2">
               <button type="button" class="btn btn-primary btn-action" @click="addStep">
@@ -185,8 +206,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onBeforeMount } from 'vue'
+import { ref, reactive, computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 import type { Recipe } from '@/models/Recipe'
 import { useRecipesStore } from '@/stores/recipes'
 import { useUserStore } from '@/stores/user'
@@ -214,6 +237,20 @@ const editRecipe = reactive<{ recipe: Recipe }>({
 const newIngredient = ref('')
 const newStep = ref('')
 const newTag = ref('')
+
+const rules = computed(() => {
+  return {
+    name: { required },
+    img: { required },
+    ingredients: { required },
+    steps: { required },
+    price: { required },
+    time: { required },
+    servings: { required }
+  }
+})
+
+const v$ = useVuelidate(rules, editRecipe.recipe)
 
 const setRecipe = () => {
   const aux = recipeStore.getRecipeById(recipeId)
@@ -251,33 +288,37 @@ const deleteTag = (tag: string) => {
   editRecipe.recipe.tags = aux
 }
 
-const editRecipeInfo = () => {
-  if (recipeId === 'new') {
-    recipeStore
-      .createRecipe(editRecipe.recipe)
-      .then(() => {
-        alert('Receta creada con exito')
+const editRecipeInfo = async () => {
+  const result = await v$.value.$validate()
 
-        recipeStore.getRecipesFromApi()
-        router.push({ name: 'user' })
-      })
-      .catch((err) => {
-        alert('error al crear receta')
-        console.log('err: ', err)
-      })
-  } else {
-    recipeStore
-      .updateRecipe(editRecipe.recipe)
-      .then(() => {
-        alert('Receta editada con exito')
+  if (result) {
+    if (recipeId === 'new') {
+      recipeStore
+        .createRecipe(editRecipe.recipe)
+        .then(() => {
+          alert('Receta creada con exito')
 
-        recipeStore.getRecipesFromApi()
-        router.push({ name: 'user' })
-      })
-      .catch((err) => {
-        alert('error al editar receta')
-        console.log('err: ', err)
-      })
+          recipeStore.getRecipesFromApi()
+          router.push({ name: 'user' })
+        })
+        .catch((err) => {
+          alert('error al crear receta')
+          console.log('err: ', err)
+        })
+    } else {
+      recipeStore
+        .updateRecipe(editRecipe.recipe)
+        .then(() => {
+          alert('Receta editada con exito')
+
+          recipeStore.getRecipesFromApi()
+          router.push({ name: 'user' })
+        })
+        .catch((err) => {
+          alert('error al editar receta')
+          console.log('err: ', err)
+        })
+    }
   }
 }
 
@@ -319,5 +360,9 @@ li {
   border-radius: 50%;
   size: small;
   margin: 3px;
+}
+
+.error {
+  color: crimson;
 }
 </style>
