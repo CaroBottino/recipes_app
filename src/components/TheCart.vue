@@ -75,22 +75,27 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-// import { Modal } from 'bootstrap'
+import { Offcanvas } from 'bootstrap'
 import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
 const router = useRouter()
 
 const buyItems = () => {
-  userStore.buyItems().then(() => {
-    alert('items comprados!')
-    // Modal.getInstance('#cart')?.hide()
-  })
+  userStore
+    .buyItems()
+    .then(() => {
+      Offcanvas.getInstance('#cart')?.hide()
+      router.push({ name: 'bought', params: { status: 'success' } })
+    })
+    .catch(() => {
+      router.push({ name: 'bought', params: { status: 'error' } })
+    })
 }
 
 const registerUser = () => {
+  Offcanvas.getInstance('#cart')?.hide()
   router.push({ name: 'login' })
-  // Modal.getInstance('#cart')?.hide()
 }
 </script>
 

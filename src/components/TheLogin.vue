@@ -1,11 +1,6 @@
 <template>
   <div>
     <div>
-      <div v-if="loginErrors" class="alert alert-danger" role="alert">
-        A simple danger alert—check it out!
-      </div>
-    </div>
-    <div>
       <!-- login form -->
       <form v-if="show" @submit.prevent="loginHandler">
         <div class="mb-3">
@@ -155,7 +150,6 @@ import type { User } from '@/models/User'
 const emits = defineEmits(['login', 'register'])
 
 const show = ref(true)
-const loginErrors = ref()
 const loginForm = reactive({
   email: '',
   pass: ''
@@ -181,7 +175,18 @@ const formState = reactive({
 })
 
 const customValidation = (value: string) => {
-  return /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}$/.test(value)
+  //return /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}$/.test(value)
+  if (
+    value.length < 8 ||
+    value.length > 31 ||
+    !value.match(/[A-Z]/) ||
+    !value.match(/[0-9]/) ||
+    !value.match(/[.,:!?]/)
+  ) {
+    return false
+  }
+
+  return true
 }
 
 const rules = computed(() => {
@@ -195,7 +200,7 @@ const rules = computed(() => {
         required,
         minLength: minLength(6),
         customValidation: helpers.withMessage(
-          'la contraseña debe tener mayúsculas, minúsculas y números.',
+          'La contraseña debe tener una cantidad mínica de 8 dígitos, máxima de 31 dígitos, al menos 1 mayúcula, al menos 1 número y al menos 1 caracter especial.',
           customValidation
         )
       },

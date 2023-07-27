@@ -30,16 +30,16 @@
               <p>🍽️ Porciones: {{ props.recipe.servings }}</p>
             </div>
 
-            <div>
-              <h6>Ingredientes</h6>
-              <ul>
-                <li v-for="(ingredient, i) in props.recipe.ingredients" :key="i">
-                  {{ ingredient }}
-                </li>
-              </ul>
-            </div>
-
             <div v-if="userCanSee(props.recipe.id)">
+              <div>
+                <h6>Ingredientes</h6>
+                <ul>
+                  <li v-for="(ingredient, i) in props.recipe.ingredients" :key="i">
+                    {{ ingredient }}
+                  </li>
+                </ul>
+              </div>
+
               <h6>Pasos a seguir...</h6>
               <ol>
                 <li v-for="(step, i) in props.recipe.steps" :key="i">
@@ -48,6 +48,15 @@
               </ol>
             </div>
             <div v-else>
+              <div>
+                <h6>Ingredientes</h6>
+                <ul class="blur">
+                  <li v-for="(ingredient, i) in props.recipe.ingredients" :key="i">
+                    {{ ingredient }}
+                  </li>
+                </ul>
+              </div>
+
               <p>🧁 Conseguí la receta completa por ${{ props.recipe.price }}</p>
             </div>
           </div>
@@ -75,6 +84,7 @@ import type { Recipe } from '@/models/Recipe'
 import type { CartItem } from '@/models/CartItem'
 import { useUserStore } from '@/stores/user'
 import { useRecipesStore } from '@/stores/recipes'
+import { Modal } from 'bootstrap'
 
 const props = defineProps({
   recipe: {
@@ -112,6 +122,8 @@ const addItemToCart = (recipe: Recipe) => {
   }
 
   userStore.addItemToCart(recipeToCart)
+
+  Modal.getInstance('#infoRecipe')?.hide()
 }
 </script>
 
@@ -136,5 +148,9 @@ p {
 
 .tag {
   margin: 3px;
+}
+
+.blur {
+  -webkit-mask-image: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, #fff 100%);
 }
 </style>

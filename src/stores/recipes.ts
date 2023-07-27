@@ -17,6 +17,22 @@ export const useRecipesStore = defineStore('recipes', () => {
     return state.recipes.find((recipe) => recipe.id === id)
   }
 
+  function filterRecipeByCriteria(criteria: string) {
+    return state.recipes.filter((recipe) => {
+      console.log(
+        recipe.name,
+        recipe.ingredients.find((ingredient) => ingredient === criteria)
+      )
+      return (
+        recipe.name.toLowerCase().indexOf(criteria.toLowerCase()) != -1 ||
+        recipe.tags.find((tag) => tag === criteria) ||
+        recipe.ingredients.find(
+          (ingredient) => ingredient.toLowerCase().indexOf(criteria.toLowerCase()) != -1
+        )
+      )
+    })
+  }
+
   const getRecipesFromApi = (): Promise<boolean | AxiosError> => {
     return RecipesController.getRecipes()
       .then((res) => {
@@ -63,6 +79,7 @@ export const useRecipesStore = defineStore('recipes', () => {
     getRecipeById,
     getRecipesByUser,
     getRecipesFromApi,
+    filterRecipeByCriteria,
     createRecipe,
     updateRecipe,
     deleteRecipe
