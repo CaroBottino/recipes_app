@@ -1,10 +1,10 @@
 <template>
   <div class="card">
-    <img :src="props.recipe.img" :alt="props.recipe.name" style="opacity: 1" />
+    <img :src="recipe.img" :alt="recipe.name" style="opacity: 1" />
     <header>
-      <h4>{{ props.recipe.name }}</h4>
-      <p>porciones: {{ props.recipe.servings }}</p>
-      <p>tiempo: {{ props.recipe.time }} minutos</p>
+      <h4 data-test="card-header">{{ recipe.name }}</h4>
+      <p data-test="card-servings">porciones: {{ recipe.servings }}</p>
+      <p data-test="card-time">tiempo: {{ recipe.time }} minutos</p>
     </header>
     <footer>
       <button
@@ -16,9 +16,9 @@
       >
         <i class="bi bi-info-lg"></i>
       </button>
-      <template v-if="!userCanSee(props.recipe.id)">
+      <template v-if="!userCanSee(recipe.id)">
         <button
-          v-if="store.getItemFromCart(props.recipe.id).length > 0"
+          v-if="store.getItemFromCart(recipe.id).length > 0"
           type="button"
           class="btn btn-primary icon-check"
         >
@@ -31,7 +31,7 @@
           data-bs-toggle="offcanvas"
           data-bs-target="#cart"
           aria-controls="cart"
-          @click="addItemToCart(props.recipe)"
+          @click="addItemToCart(recipe)"
         >
           <i class="bi bi-cart-plus"></i>
         </button>
@@ -41,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
 import type { Recipe } from '@/models/Recipe'
 import type { CartItem } from '@/models/CartItem'
 import { useUserStore } from '@/stores/user'
@@ -50,14 +49,8 @@ import { useRecipesStore } from '@/stores/recipes'
 const store = useUserStore()
 const recipesStore = useRecipesStore()
 
+const props = defineProps<{ recipe: Recipe }>()
 const emits = defineEmits(['showInfo'])
-
-const props = defineProps({
-  recipe: {
-    type: Object as PropType<Recipe>,
-    required: true
-  }
-})
 
 const showInfo = () => {
   emits('showInfo', props.recipe)

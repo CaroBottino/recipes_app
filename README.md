@@ -13,8 +13,9 @@ This application is built with Vue.js v3. Just a little brief of my skills for y
 - Mockapi backend
 - Vuelidate
 - Bootstrap & bootstrap-icons
+- Vitest for unit testing
 
-This app is growing... pretends to be fully tested with Jest and Cypress 🌸
+This app is growing... pretends to be fully tested with Vistest and Cypress 🌸
 
 ## To interact:
 
