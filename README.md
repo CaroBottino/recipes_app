@@ -21,7 +21,7 @@ This app is growing... pretends to be fully tested with Jest and Cypress 🌸
 Hosted on GitHub pages! Just browse to https://carobottino.github.io/recipes_app/
 
 - there's a file in /src/assets/json/items.json with demo info about recipes for you to create new ones, edit and delete them 😁
-- you can register your own user
+- you can register your own user (code can be any word 😁)
 - Ej user: caro@mail.com, caro1234
 
 ## Project setup
