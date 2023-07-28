@@ -21,6 +21,7 @@
             placeholder="..."
             aria-label="Search"
             v-model="search"
+            required
           />
           <button type="submit" class="btn btn-primary cart-btn">
             <i class="bi bi-search"></i>
@@ -74,52 +75,6 @@
           </ul>
         </div>
       </div>
-      <!-- <div>
-        <ul
-          class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-          style="--bs-scroll-height: 100px"
-        >
-          <li v-if="userStore.logged">
-            <button
-              type="button"
-              class="btn logged-user"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img :src="userStore.getUser.avatar" class="avatar" alt="..." />
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarScrollingDropdown">
-              <li class="menu-li"><router-link :to="{ name: 'user' }"> Profile </router-link></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" @click="signOut">Sign Out</a></li>
-            </ul>
-          </li>
-          <li v-else>
-            <router-link :to="{ name: 'login' }">
-              <button type="button" class="btn btn-primary cart-btn">
-                <i class="bi bi-person-circle"></i>
-              </button>
-            </router-link>
-          </li>
-          <li>
-            <button
-              type="button"
-              class="btn btn-primary cart-btn position-relative"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#cart"
-              aria-controls="cart"
-            >
-              <i class="bi bi-cart"></i>
-              <span
-                v-if="userStore.cartItemsQ > 0"
-                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-              >
-                {{ userStore.cartItemsQ }}
-              </span>
-            </button>
-          </li>
-        </ul>
-      </div> -->
     </div>
   </nav>
 </template>
@@ -140,7 +95,6 @@ const signOut = () => {
 }
 
 const searchRecipes = () => {
-  console.log('search... ', search.value)
   router.push({ name: 'search', params: { search: search.value } })
 }
 </script>
