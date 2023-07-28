@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="modal-body">
-            <h3>{{ props.recipe.name }}</h3>
+            <h3 data-test="recipe-name">{{ props.recipe.name }}</h3>
             <div>
               <span
                 v-for="(tag, i) in props.recipe.tags"
@@ -26,14 +26,14 @@
               </span>
             </div>
             <div class="desc">
-              <p>⏰ Tiempo: {{ props.recipe.time }} minutos</p>
-              <p>🍽️ Porciones: {{ props.recipe.servings }}</p>
+              <p data-test="recipe-time">⏰ Tiempo: {{ props.recipe.time }} minutos</p>
+              <p data-test="recipe-servings">🍽️ Porciones: {{ props.recipe.servings }}</p>
             </div>
 
             <div v-if="userCanSee(props.recipe.id)">
               <div>
                 <h6>Ingredientes</h6>
-                <ul>
+                <ul data-test="recipe-ingredients">
                   <li v-for="(ingredient, i) in props.recipe.ingredients" :key="i">
                     {{ ingredient }}
                   </li>
@@ -41,7 +41,7 @@
               </div>
 
               <h6>Pasos a seguir...</h6>
-              <ol>
+              <ol data-test="recipe-steps">
                 <li v-for="(step, i) in props.recipe.steps" :key="i">
                   {{ step }}
                 </li>
@@ -50,7 +50,7 @@
             <div v-else>
               <div>
                 <h6>Ingredientes</h6>
-                <ul class="blur">
+                <ul data-test="recipe-ingredients" class="blur">
                   <li v-for="(ingredient, i) in props.recipe.ingredients" :key="i">
                     {{ ingredient }}
                   </li>
@@ -79,19 +79,13 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
 import type { Recipe } from '@/models/Recipe'
 import type { CartItem } from '@/models/CartItem'
 import { useUserStore } from '@/stores/user'
 import { useRecipesStore } from '@/stores/recipes'
 import { Modal } from 'bootstrap'
 
-const props = defineProps({
-  recipe: {
-    type: Object as PropType<Recipe>,
-    required: true
-  }
-})
+const props = defineProps<{ recipe: Recipe }>()
 
 const userStore = useUserStore()
 const recipesStore = useRecipesStore()
