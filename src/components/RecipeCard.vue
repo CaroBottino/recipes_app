@@ -13,6 +13,7 @@
         v-on:click="showInfo"
         data-bs-toggle="modal"
         data-bs-target="#infoRecipe"
+        data-test="info-btn"
       >
         <i class="bi bi-info-lg"></i>
       </button>
@@ -21,6 +22,7 @@
           v-if="store.getItemFromCart(recipe.id).length > 0"
           type="button"
           class="btn btn-primary icon-check"
+          data-test="already-in-cart-btn"
         >
           <i class="bi bi-check-lg"></i>
         </button>
@@ -32,6 +34,7 @@
           data-bs-target="#cart"
           aria-controls="cart"
           @click="addItemToCart(recipe)"
+          data-test="add-to-cart-btn"
         >
           <i class="bi bi-cart-plus"></i>
         </button>
