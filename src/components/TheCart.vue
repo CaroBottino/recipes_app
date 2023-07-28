@@ -63,7 +63,7 @@
             type="button"
             class="btn btn-primary btn-sm"
             @click="buyItems"
-            :disabled="userStore.getUserCart.length === 0"
+            :disabled="userStore.cartItemsQ === 0"
           >
             Comprar!
           </button>
