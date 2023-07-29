@@ -1,11 +1,14 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import { mount } from '@vue/test-utils'
 import RecipeInfo from '@/components/RecipeInfo.vue'
-import type { Recipe } from '@/models/Recipe'
+import { Recipe } from '@/models/Recipe'
 import type { User } from '@/models/User'
 import { useUserStore } from '@/stores/user'
 import { useRecipesStore } from '@/stores/recipes'
+import axios from 'axios'
+
+vi.mock('axios')
 
 describe('RecipeCard', () => {
   const recipe: Recipe = {
@@ -34,6 +37,19 @@ describe('RecipeCard', () => {
     user: '1'
   }
 
+  const recipe4: Recipe = {
+    name: 'Test item 4',
+    img: 'https://img.freepik.com/vector-gratis/ilustracion-icono-dibujos-animados-pastel-taza-concepto-icono-pasteleria-alimentos-aislado-estilo-dibujos-animados-plana_138676-2571.jpg?w=2000',
+    ingredients: ['harina', 'huevos', 'leche', 'agua'],
+    steps: ['hervir agua', 'batir huevos', 'mezclar todo'],
+    price: 10,
+    time: 24,
+    servings: 3,
+    tags: ['test'],
+    id: '11',
+    user: '3'
+  }
+
   const testUser: User = {
     id: '1',
     fullname: 'Test User',
@@ -54,7 +70,7 @@ describe('RecipeCard', () => {
     bought: [
       {
         createdAt: '2023-07-23T23:52:01.544Z',
-        name: 'Test item 2',
+        name: 'Test item 4',
         img: 'https://img.freepik.com/vector-gratis/ilustracion-icono-dibujos-animados-pastel-taza-concepto-icono-pasteleria-alimentos-aislado-estilo-dibujos-animados-plana_138676-2571.jpg?w=2000',
         ingredients: ['harina', 'huevos', 'leche', 'agua'],
         steps: ['hervir agua', 'batir huevos', 'mezclar todo'],
@@ -93,14 +109,35 @@ describe('RecipeCard', () => {
     expect(ingredients.classes()).toContain('blur')
   })
 
-  it('user can see full info, recipe owner', () => {
+  it('user can see full info, recipe owner', async () => {
     const user = useUserStore()
     user.loginUser(testUser)
+
+    // mock axios get response to find recipe3
     const recipesStore = useRecipesStore()
-    recipesStore.recipes.push(recipe3)
+    vi.mocked(axios, true).get.mockResolvedValue({
+      data: [recipe3]
+    })
+    await recipesStore.getRecipesFromApi()
 
     const wrapper = mount(RecipeInfo, { props: { recipe: recipe3 } })
+    const steps = wrapper.get('[data-test="recipe-steps"]')
 
+    expect(steps).toBeTruthy()
+  })
+
+  it('user can see full info, bought recipe', async () => {
+    const user = useUserStore()
+    user.loginUser(testUser)
+
+    // mock axios get response to find recipe4
+    const recipesStore = useRecipesStore()
+    vi.mocked(axios, true).get.mockResolvedValue({
+      data: [recipe4]
+    })
+    await recipesStore.getRecipesFromApi()
+
+    const wrapper = mount(RecipeInfo, { props: { recipe: recipe4 } })
     const steps = wrapper.get('[data-test="recipe-steps"]')
 
     expect(steps).toBeTruthy()
