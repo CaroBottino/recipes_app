@@ -2,11 +2,11 @@
   <div>
     <div v-if="recipes.length == 0" class="spinner">
       <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
+        <span data-test="loading-spinner" class="visually-hidden">Loading...</span>
       </div>
     </div>
     <div class="cards">
-      <div v-for="(recipe, i) in props.recipes" :key="i">
+      <div v-for="(recipe, i) in recipes" :key="i" data-test="recipe-cards">
         <RecipeCard :recipe="recipe" @showInfo="showInfoHandler" />
       </div>
     </div>
@@ -21,12 +21,7 @@ import RecipeCard from '@/components/RecipeCard.vue'
 import RecipeInfo from '@/components/RecipeInfo.vue'
 import type { Recipe } from '@/models/Recipe'
 
-const props = defineProps({
-  recipes: {
-    type: Array<Recipe>,
-    required: true
-  }
-})
+defineProps<{ recipes: Recipe[] }>()
 
 const infoRecipe = reactive<{ recipe: Recipe }>({
   recipe: {
