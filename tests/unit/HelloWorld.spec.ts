@@ -33,9 +33,11 @@ describe('HelloWorld', () => {
     const input = mountHelloWorld().find('input')
     // input renders with an empty value
     expect(input.text()).toContain('')
+    console.log('input: ', input)
     // fill the input
     await input.setValue('jane@doe.com')
     // Check the input has a value
+    console.log('input: ', input)
     expect(input.element.value).toEqual('jane@doe.com')
   })
 })

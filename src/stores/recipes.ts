@@ -19,10 +19,6 @@ export const useRecipesStore = defineStore('recipes', () => {
 
   function filterRecipeByCriteria(criteria: string) {
     return state.recipes.filter((recipe) => {
-      console.log(
-        recipe.name,
-        recipe.ingredients.find((ingredient) => ingredient === criteria)
-      )
       return (
         recipe.name.toLowerCase().indexOf(criteria.toLowerCase()) != -1 ||
         recipe.tags.find((tag) => tag === criteria) ||

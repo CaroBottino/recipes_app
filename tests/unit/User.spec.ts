@@ -50,8 +50,7 @@ describe('Users Store', () => {
         data: testUser
       })
 
-      const response = await UsersController.updateUser(testUser.id, testUser)
-      console.log(response)
+      await UsersController.updateUser(testUser.id, testUser)
 
       expect(axios.put).toHaveBeenCalledWith(
         'https://64bbec3d7b33a35a4446d087.mockapi.io/v1/user/1',

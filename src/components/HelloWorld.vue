@@ -27,7 +27,13 @@ const Submit = () => {
     </h3>
 
     <form @submit.prevent="Submit">
-      <input v-model="email" type="email" placeholder="your@email.com" required />
+      <input
+        v-model="email"
+        type="email"
+        placeholder="your@email.com"
+        required
+        data-test="input-test"
+      />
       <button type="submit">Submit</button>
     </form>
   </div>

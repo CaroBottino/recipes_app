@@ -2,7 +2,7 @@
   <div>
     <div>
       <!-- login form -->
-      <form v-if="show" @submit.prevent="loginHandler">
+      <form v-if="show" @submit.prevent="loginHandler" data-test="login-form">
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input
@@ -11,27 +11,42 @@
             aria-describedby="emailHelp"
             id="email"
             v-model="loginForm.email"
+            required
+            data-test="login-email"
           />
           <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div class="mb-3">
           <label for="pass" class="form-label">Password</label>
-          <input type="password" class="form-control" id="pass" v-model="loginForm.pass" />
+          <input
+            type="password"
+            class="form-control"
+            id="pass"
+            v-model="loginForm.pass"
+            required
+            data-test="login-pass"
+          />
         </div>
         <div class="mb-3 form-check">
           <p>
             ¿Aún no estás registrado? Registrate
-            <a href="#" v-on:click="changeForm">aquí.</a>
+            <a href="#" v-on:click="changeForm" data-test="go-to-register">aquí.</a>
           </p>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" data-test="login-submit">Submit</button>
       </form>
 
       <!-- registration form -->
-      <form v-else @submit.prevent="submitHandler">
+      <form v-else @submit.prevent="submitHandler" data-test="register-form">
         <div class="mb-3">
           <label for="email" class="form-label">Nombre completo</label>
-          <input type="text" class="form-control" id="fullname" v-model="formState.fullname" />
+          <input
+            type="text"
+            class="form-control"
+            id="fullname"
+            v-model="formState.fullname"
+            data-test="register-fullname"
+          />
           <span v-if="v$.fullname.$error" class="error">
             {{ v$.fullname.$errors[0].$message }}
           </span>
@@ -44,6 +59,7 @@
             id="fullname"
             aria-describedby="avatarHelp"
             v-model="formState.avatar"
+            data-test="register-avatar"
           />
           <div id="avatarHelp" class="form-text">Url a una foto que te guste 🌸</div>
           <span v-if="v$.avatar.$error" class="error">
@@ -58,6 +74,7 @@
             aria-describedby="emailHelp"
             id="email"
             v-model="formState.email"
+            data-test="register-email"
           />
           <div id="emailHelp" class="form-text">Nunca compartiremos tu información.</div>
           <span v-if="v$.email.$error" class="error">
@@ -66,7 +83,13 @@
         </div>
         <div class="mb-3">
           <label for="pass" class="form-label">Password</label>
-          <input type="password" class="form-control" id="pass" v-model="formState.password.pass" />
+          <input
+            type="password"
+            class="form-control"
+            id="pass"
+            v-model="formState.password.pass"
+            data-test="register-pass"
+          />
           <span v-if="v$.password.pass.$error" class="error">
             {{ v$.password.pass.$errors[0].$message }}
           </span>
@@ -78,6 +101,7 @@
             class="form-control"
             id="confirm"
             v-model="formState.password.confirm"
+            data-test="register-conf"
           />
           <span v-if="v$.password.confirm.$error" class="error">
             {{ v$.password.confirm.$errors[0].$message }}
@@ -91,42 +115,13 @@
             aria-describedby="codeHelp"
             id="code"
             v-model="formState.code"
+            data-test="register-code"
           />
           <div id="codeHelp" class="form-text">Lo enviamos a tu cuenta</div>
           <span v-if="v$.code.$error" class="error">
             {{ v$.code.$errors[0].$message }}
           </span>
         </div>
-
-        <!-- 
-        <div>
-          <label for="email">email:</label>
-          <input type="email" id="email" v-model="formState.email" />
-          <span v-if="v$.email.$error">
-            {{ v$.email.$errors[0].$message }}
-          </span>
-        </div>
-        <div>
-          <label for="pass">password:</label>
-          <input type="password" id="pass" v-model="formState.password.pass" />
-          <span v-if="v$.password.pass.$error">
-            {{ v$.password.pass.$errors[0].$message }}
-          </span>
-        </div>
-        <div>
-          <label for="confirm">repita password:</label>
-          <input type="password" id="confirm" v-model="formState.password.confirm" />
-          <span v-if="v$.password.confirm.$error">
-            {{ v$.password.confirm.$errors[0].$message }}
-          </span>
-        </div>
-        <div>
-          <label for="code">codigo acceso:</label>
-          <input type="text" id="code" v-model="formState.code" />
-          <span v-if="v$.code.$error">
-            {{ v$.code.$errors[0].$message }}
-          </span>
-        </div> -->
 
         <div>
           <p>
@@ -135,7 +130,7 @@
           </p>
         </div>
 
-        <button class="btn btn-primary">Submit!</button>
+        <button type="submit" class="btn btn-primary" data-test="register-submit">Submit!</button>
       </form>
     </div>
   </div>
