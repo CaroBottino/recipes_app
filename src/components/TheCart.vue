@@ -7,7 +7,7 @@
     aria-labelledby="cartLabel"
   >
     <div class="offcanvas-header">
-      <h5 id="cartLabel">Carrito</h5>
+      <h5 data-test="cart-label" id="cartLabel">Carrito</h5>
       <button
         type="button"
         class="btn-close text-reset"
@@ -16,7 +16,9 @@
       ></button>
     </div>
     <div class="offcanvas-body">
-      <div v-if="userStore.cartItemsQ == 0">No hay items en tu carrito</div>
+      <div v-if="userStore.cartItemsQ == 0" data-test="no-cart-items">
+        No hay items en tu carrito
+      </div>
       <div
         v-else
         v-for="item in userStore.getUserCart"
@@ -29,7 +31,7 @@
             <img :src="item.img" class="img-fluid rounded-start" :alt="item.id" />
           </div>
           <div class="col-md-8">
-            <div class="card-body">
+            <div class="card-body" data-test="cart-item">
               <h5 class="card-title">{{ item.name }}</h5>
               <div class="row desc">
                 <div class="col">
@@ -40,6 +42,7 @@
                     type="button"
                     class="btn btn-primary btn-sm"
                     @click="userStore.deleteItemFromCart(item.id)"
+                    data-test="cart-delete-item"
                   >
                     <i class="bi bi-trash"></i>
                   </button>
@@ -54,7 +57,12 @@
       <div class="row">
         <div class="col"><strong>Total:</strong> $ {{ userStore.cartPrice }}</div>
         <div class="col" v-if="userStore.getUser.id === ''">
-          <button type="button" class="btn btn-primary btn-sm" @click="registerUser">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            @click="registerUser"
+            data-test="cart-register"
+          >
             Registrate y comprá ✨
           </button>
         </div>
@@ -64,6 +72,7 @@
             class="btn btn-primary btn-sm"
             @click="buyItems"
             :disabled="userStore.cartItemsQ === 0"
+            data-test="cart-buy"
           >
             Comprar!
           </button>
