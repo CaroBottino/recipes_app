@@ -12,40 +12,6 @@ import { wrap } from 'module'
 vi.mock('axios')
 
 describe('TheLogin', () => {
-  const testUser: User = {
-    id: '11',
-    fullname: 'Test User',
-    avatar:
-      'https://i.pinimg.com/736x/35/9d/1d/359d1d33ca0cca4e58b7a8113c2977c1--avatar-robots.jpg',
-    email: 'test@mail.com',
-    pass: 'test1234',
-    role: 'admin',
-    cart: [
-      {
-        id: '11',
-        name: 'Test item 11',
-        img: 'https://img.freepik.com/vector-gratis/ilustracion-icono-dibujos-animados-pastel-taza-concepto-icono-pasteleria-alimentos-aislado-estilo-dibujos-animados-plana_138676-2571.jpg?w=2000',
-        price: 10,
-        user: '3'
-      }
-    ],
-    bought: [
-      {
-        createdAt: '2023-07-23T23:52:01.544Z',
-        name: 'Test item 4',
-        img: 'https://img.freepik.com/vector-gratis/ilustracion-icono-dibujos-animados-pastel-taza-concepto-icono-pasteleria-alimentos-aislado-estilo-dibujos-animados-plana_138676-2571.jpg?w=2000',
-        ingredients: ['harina', 'huevos', 'leche', 'agua'],
-        steps: ['hervir agua', 'batir huevos', 'mezclar todo'],
-        price: 10,
-        time: 24,
-        servings: 3,
-        tags: ['test'],
-        id: '11',
-        user: '3'
-      }
-    ]
-  }
-
   beforeEach(() => {
     setActivePinia(createPinia())
   })
@@ -66,7 +32,7 @@ describe('TheLogin', () => {
     expect(wrapper.find('[data-test="login-form"]').exists()).toBe(false)
   })
 
-  it("doesn't emmit submit if form is empty", () => {
+  it("doesn't emmit submit if login form is empty", () => {
     const wrapper = mount(TheLogin)
 
     wrapper.get('[data-test="login-submit"]').trigger('click')
@@ -74,7 +40,7 @@ describe('TheLogin', () => {
     expect(wrapper.emitted()).not.toHaveProperty('login')
   })
 
-  it('emmits submit if form is complete', async () => {
+  it('emmits submit if login form is complete', async () => {
     const wrapper = mount(TheLogin)
 
     await wrapper.find('[data-test="login-email"]').setValue('test@mail.com')
@@ -82,7 +48,7 @@ describe('TheLogin', () => {
 
     wrapper.get('[data-test="login-form"]').trigger('submit')
 
-    // await wrapper.vm.$nextTick() // Wait until $emits have been handled
+    await wrapper.vm.$nextTick() // Wait until $emits have been handled
 
     expect(wrapper.emitted('submit')).toHaveLength(1)
 
@@ -93,7 +59,7 @@ describe('TheLogin', () => {
     // }])
   })
 
-  it('emmits register if form is correct', async () => {
+  it('emmits register if register form is correct', async () => {
     const wrapper = mount(TheLogin)
     await wrapper.get('[data-test="go-to-register"]').trigger('click')
 
@@ -107,19 +73,16 @@ describe('TheLogin', () => {
     await wrapper.find('[data-test="register-pass"]').setValue('testUser1234!')
     await wrapper.find('[data-test="register-conf"]').setValue('testUser1234!')
     await wrapper.find('[data-test="register-code"]').setValue('holis')
-    // await wrapper.get('[data-test="register-form"]').trigger('submit')
+    await wrapper.get('[data-test="register-form"]').trigger('submit')
     await wrapper.get('[data-test="register-submit"]').trigger('click')
 
     await wrapper.vm.$nextTick()
 
     expect(wrapper.find('[data-test="register-fullname"]').element.value).toEqual('Test User')
-
-    // should emit register... but doesn't
-    console.log(wrapper.emitted())
     expect(wrapper.emitted('register')).toBeTruthy()
   })
 
-  it('shows error if form filling is incorrect', async () => {
+  it('shows error if register form filling is incorrect', async () => {
     const wrapper = mount(TheLogin)
     await wrapper.get('[data-test="go-to-register"]').trigger('click')
 
@@ -131,10 +94,21 @@ describe('TheLogin', () => {
       )
     await wrapper.find('[data-test="register-email"]').setValue('test@mail.com')
     await wrapper.find('[data-test="register-pass"]').setValue('test1234')
-    // await wrapper.find('[data-test="register-conf"]').setValue('testUser1234!')
-    // await wrapper.find('[data-test="register-code"]').setValue('holis')
     await wrapper.get('[data-test="register-form"]').trigger('submit')
 
     expect(wrapper.emitted('register')).toBe(undefined)
+  })
+
+  it('checks register password is correct', async () => {
+    const wrapper = mount(TheLogin)
+    await wrapper.get('[data-test="go-to-register"]').trigger('click')
+
+    await wrapper.find('[data-test="register-pass"]').setValue('test1234')
+    await wrapper.get('[data-test="register-form"]').trigger('submit')
+
+    expect(wrapper.find('[data-test="error-pass"]').exists()).toBe(true)
+
+    await wrapper.find('[data-test="register-pass"]').setValue('Test123!')
+    expect(wrapper.find('[data-test="error-pass"]').exists()).toBe(false)
   })
 })

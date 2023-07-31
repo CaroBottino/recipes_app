@@ -90,7 +90,7 @@
             v-model="formState.password.pass"
             data-test="register-pass"
           />
-          <span v-if="v$.password.pass.$error" class="error">
+          <span v-if="v$.password.pass.$error" class="error" data-test="error-pass">
             {{ v$.password.pass.$errors[0].$message }}
           </span>
         </div>
