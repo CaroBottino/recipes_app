@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
     <div class="container-fluid">
-      <router-link :to="{ name: 'home' }" class="navbar-brand"> Recipes App </router-link>
+      <router-link :to="{ name: 'home' }" class="navbar-brand" data-test="navbar-brand">
+        Recipes App
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -14,7 +16,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarScroll">
-        <form class="d-flex" @submit.prevent="searchRecipes">
+        <form class="d-flex" @submit.prevent="searchRecipes" data-test="search-form">
           <input
             class="form-control me-2"
             type="search"
@@ -22,6 +24,7 @@
             aria-label="Search"
             v-model="search"
             required
+            data-test="search-criteria"
           />
           <button type="submit" class="btn btn-primary cart-btn">
             <i class="bi bi-search"></i>
@@ -40,17 +43,28 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <img :src="userStore.getUser.avatar" class="avatar" alt="..." />
+                <img
+                  :src="userStore.getUser.avatar"
+                  class="avatar"
+                  alt="..."
+                  data-test="user-avatar"
+                />
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarScrollingDropdown">
-                <li class="menu-li"><router-link :to="{ name: 'user' }"> Profile </router-link></li>
+                <li class="menu-li">
+                  <router-link :to="{ name: 'user' }" data-test="profile-btn">
+                    Profile
+                  </router-link>
+                </li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" @click="signOut">Sign Out</a></li>
+                <li>
+                  <a class="dropdown-item" @click="signOut" data-test="sign-out">Sign Out</a>
+                </li>
               </ul>
             </li>
             <li v-else>
               <router-link :to="{ name: 'login' }">
-                <button type="button" class="btn btn-primary cart-btn">
+                <button type="button" class="btn btn-primary cart-btn" data-test="login-btn">
                   <i class="bi bi-person-circle"></i>
                 </button>
               </router-link>
@@ -67,6 +81,7 @@
                 <span
                   v-if="userStore.cartItemsQ > 0"
                   class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  data-test="cart-items-q"
                 >
                   {{ userStore.cartItemsQ }}
                 </span>
